@@ -1,0 +1,36 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    background-color: #66a0b0;
+    color: #f2f2f2;
+}
+
+.headerTitle {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+}
+
+.verticalAlign {
+    display: flex;
+    align-items: center;
+}
+
+.logoStyle {
+    background-color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-right: 5px;
+}
