@@ -1,12 +1,13 @@
 import { createHashRouter, RouterProvider } from "react-router-dom";
 import Layout from "./pages/layout/Layout";
 import { initializeIcons } from "@fluentui/react";
-import { Configuration,  PublicClientApplication } from "@azure/msal-browser";
+import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { useQuery } from "@tanstack/react-query";
 import { AuthConfig } from "./authTypes";
 import { fetchAuthConfig } from "./api/AuthConfigApi";
 import CptisHomePage from "./pages/CptisHomePage";
+import NotFound from "./pages/NotFound";
 
 initializeIcons();
 
@@ -21,24 +22,24 @@ const router = createHashRouter([
             },
             {
                 path: "first-route",
-                lazy: () => import("./pages/NotFound")
+                element: <div>First Route</div>
             },
             {
                 path: "*",
-                lazy: () => import("./pages/NotFound")
+                element: <NotFound />
             }
         ]
     }
 ]);
 
 const App = () => {
-    const { data: auth, isLoading } = useQuery({
+    const { data: auth, isPending } = useQuery({
         queryFn: fetchAuthConfig,
         queryKey: ["authorization"],
         staleTime: 1000 * 60 * 60 * 24 // cached for 1 day or refresh the page.
     });
 
-    if (isLoading) {
+    if (isPending) {
         return <div>Loading...</div>
     };
 

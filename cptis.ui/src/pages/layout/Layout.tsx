@@ -5,9 +5,10 @@ import { Button } from "@fluentui/react-components";
 import { ArrowEnterFilled, ArrowExitFilled } from "@fluentui/react-icons";
 import useAuthService from "../../useAuthService";
 import LandingPage from "../../LandingPage";
+import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
 
 const Layout: FC = () => {
-    const { login, logout, checkAuth, getUserInfo } = useAuthService();
+    const { login, logout,userInfo } = useAuthService();
 
     return <div className={styles.layout}>
         <header className={styles.header} role={"banner"}>
@@ -20,8 +21,8 @@ const Layout: FC = () => {
                 </h3>
 
                 <div>
-                    {checkAuth()
-                        ? <Fragment>{getUserInfo()?.userName}
+                    <AuthenticatedTemplate>
+                        <Fragment>{userInfo?.userName}
                             <Button
                                 appearance="transparent"
                                 icon={<ArrowExitFilled />}
@@ -30,21 +31,25 @@ const Layout: FC = () => {
                                 Logout
                             </Button>
                         </Fragment>
-                        : <Button
+                    </AuthenticatedTemplate>
+                    <UnauthenticatedTemplate>
+                        <Button
                             appearance="transparent"
                             icon={<ArrowEnterFilled />}
                             onClick={login}
                         >
                             Login
                         </Button>
-                    }
+                    </UnauthenticatedTemplate>
                 </div>
             </div>
         </header>
-        {checkAuth()
-            ? <Outlet />
-            : <LandingPage />
-        }
+        <AuthenticatedTemplate>
+            <Outlet />
+        </AuthenticatedTemplate>
+        <UnauthenticatedTemplate>
+            <LandingPage />
+        </UnauthenticatedTemplate>
     </div>
 };
 
