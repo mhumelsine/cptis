@@ -1,4 +1,4 @@
-import { AccountInfo, EventMessage, EventType } from "@azure/msal-browser";
+import { EventType } from "@azure/msal-browser";
 import { fetchAuthConfig } from "./api/AuthConfigApi";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";

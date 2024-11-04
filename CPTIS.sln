@@ -3,9 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.api", "cptis.api\cptis.api.csproj", "{FF301612-9877-4CEE-92A6-FB47B9BE7C50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cptis.api", "cptis.api\cptis.api.csproj", "{FF301612-9877-4CEE-92A6-FB47B9BE7C50}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "cptis.ui", "cptis.ui\cptis.ui.esproj", "{14A6B3EC-48DD-4BD4-B704-165C00A974BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.domain", "cptis.domain\cptis.domain.csproj", "{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.infrastructure", "cptis.infrastructure\cptis.infrastructure.csproj", "{032C9931-BA43-4D7C-9CE2-809B66ECF62B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.application", "cptis.application\cptis.application.csproj", "{53EC072E-5E88-49F3-AACC-143AF2F9F742}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.tests", "cptis.tests\cptis.tests.csproj", "{7F493394-F7EC-43AB-BEFF-928A9493FA92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{1FC9C7FC-6644-4CE4-9F1A-A37CA58B4BAE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +33,22 @@ Global
 		{14A6B3EC-48DD-4BD4-B704-165C00A974BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14A6B3EC-48DD-4BD4-B704-165C00A974BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14A6B3EC-48DD-4BD4-B704-165C00A974BF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{032C9931-BA43-4D7C-9CE2-809B66ECF62B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032C9931-BA43-4D7C-9CE2-809B66ECF62B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032C9931-BA43-4D7C-9CE2-809B66ECF62B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032C9931-BA43-4D7C-9CE2-809B66ECF62B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53EC072E-5E88-49F3-AACC-143AF2F9F742}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53EC072E-5E88-49F3-AACC-143AF2F9F742}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53EC072E-5E88-49F3-AACC-143AF2F9F742}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53EC072E-5E88-49F3-AACC-143AF2F9F742}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F493394-F7EC-43AB-BEFF-928A9493FA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F493394-F7EC-43AB-BEFF-928A9493FA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F493394-F7EC-43AB-BEFF-928A9493FA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F493394-F7EC-43AB-BEFF-928A9493FA92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
