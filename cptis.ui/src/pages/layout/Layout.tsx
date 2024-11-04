@@ -1,55 +1,29 @@
-import { FC, Fragment } from "react";
+import { FC } from "react";
 import styles from "./Layout.module.css";
 import { Outlet } from "react-router-dom";
-import { Button } from "@fluentui/react-components";
-import { ArrowEnterFilled, ArrowExitFilled } from "@fluentui/react-icons";
-import useAuthService from "../../useAuthService";
 import LandingPage from "../../LandingPage";
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+import SideMenu from "./SideMenu";
+import TopMenu from "./TopMenu";
 
 const Layout: FC = () => {
-    const { login, logout,userInfo } = useAuthService();
 
     return <div className={styles.layout}>
-        <header className={styles.header} role={"banner"}>
-            <div className={styles.headerContainer}>
-                <h3 className={styles.headerTitle}>
-                    <span className={styles.verticalAlign}>
-                        <img src="./flhealthLogo.svg" className={styles.logoStyle} width={"50px"} height={"50px"} />
-                        <div >Child Protection Team Information System</div>
-                    </span>
-                </h3>
+        <TopMenu />       
 
-                <div>
-                    <AuthenticatedTemplate>
-                        <Fragment>{userInfo?.userName}
-                            <Button
-                                appearance="transparent"
-                                icon={<ArrowExitFilled />}
-                                onClick={logout}
-                            >
-                                Logout
-                            </Button>
-                        </Fragment>
-                    </AuthenticatedTemplate>
-                    <UnauthenticatedTemplate>
-                        <Button
-                            appearance="transparent"
-                            icon={<ArrowEnterFilled />}
-                            onClick={login}
-                        >
-                            Login
-                        </Button>
-                    </UnauthenticatedTemplate>
-                </div>
-            </div>
-        </header>
-        <AuthenticatedTemplate>
-            <Outlet />
-        </AuthenticatedTemplate>
-        <UnauthenticatedTemplate>
-            <LandingPage />
-        </UnauthenticatedTemplate>
+        <div className="flex flex-1 overflow-hidden">
+            <SideMenu />            
+
+            {/* Main Content */}
+            <main className={`${styles.mainContent} flex-1 p-6 bg-gray-100 overflow-auto`}>
+                <AuthenticatedTemplate>
+                    <Outlet />
+                </AuthenticatedTemplate>
+                <UnauthenticatedTemplate>
+                    <LandingPage />
+                </UnauthenticatedTemplate>
+            </main>
+        </div>
     </div>
 };
 

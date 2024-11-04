@@ -8,6 +8,8 @@ import { AuthConfig } from "./authTypes";
 import { fetchAuthConfig } from "./api/AuthConfigApi";
 import CptisHomePage from "./pages/CptisHomePage";
 import NotFound from "./pages/NotFound";
+import "./index.css";
+import AbuseReportPage from "./abuse-report/AbuseReportPage";
 
 initializeIcons();
 
@@ -21,8 +23,8 @@ const router = createHashRouter([
                 element: <CptisHomePage />
             },
             {
-                path: "first-route",
-                element: <div>First Route</div>
+                path: "new-report",
+                element: <AbuseReportPage />
             },
             {
                 path: "*",
