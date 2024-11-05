@@ -1,0 +1,43 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: var(--cptis-purple);
+    color: #f2f2f2;
+    padding: 0.5rem;
+}
+
+.headerTitle {
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.verticalAlign {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar {
+    
+}
+
+.logoStyle {
+    background-color: white;
+    padding: 4px;
+    margin-right: 10px;
+}
+
+.activeMenuItem {
+    background-color: var(--cptis-yellow);
+    color: white;
+    box-shadow: 2px 2px 2px gray;
+}

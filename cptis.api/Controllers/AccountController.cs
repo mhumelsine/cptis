@@ -1,28 +1,49 @@
-﻿using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Text;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace cptis.api.Controllers
 {
     [Route("[controller]")]
     public class AccountController : Controller
     {
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        [Authorize(AuthenticationSchemes = OpenIdConnectDefaults.AuthenticationScheme)]
-        [Route("sign-in/{base64Url}")]
-        [HttpGet]
-        public IActionResult SignIn([FromRoute] string base64Url)
+        private readonly IConfiguration configuration;
+
+        public AccountController(IConfiguration configuration)
         {
-            string url = Encoding.UTF8.GetString(Convert.FromBase64String(base64Url));
-
-            if (!Url.IsLocalUrl(url))
+            this.configuration = configuration;
+        }
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [Route("auth-config")]
+        [HttpGet]
+        public IActionResult GetConfig()
+        {
+            var response = new
             {
-                Uri uri = new Uri(url);
-                url = uri.AbsolutePath;
-            }
+                msalConfig = new
+                {
+                    auth = new
+                    {
+                        clientId = $"{configuration["AzureAd:ClientId"]}",
+                        authority = $"https://login.microsoftonline.com/{configuration["AzureAd:TenantId"]}",
+                        redirectUri = "/",
+                        postLogoutRedirectUri = "/"
+                    },
+                    cache = new
+                    {
+                        cacheLocation = "localStorage",
+                        storeAuthStateInCookie = false // Set to true if needed for IE11/Edge issues
+                    }
+                },
+                loginRequest = new
+                {
+                    scopes = new List<string> { $"api://{configuration["AzureAd:ClientId"]}/user_impersonation" }
+                },
+                logoutRequest = new
+                {
+                    postLogoutRedirectUri = "/"
+                }
+            };
 
-            return Redirect(url);
+            return Ok(response);
         }
     }
 }

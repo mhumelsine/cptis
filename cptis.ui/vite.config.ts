@@ -47,13 +47,16 @@ export default defineConfig({
             '/api': {
                 target,
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '/api'),
+                rewrite: (path) => {
+                    console.log('Proxying path:', path);
+                    return path.replace(/^\/api/, '/api')
+                },
                 secure: false, 
             },
             '/account': {
                 target,
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/account/, ''),
+                rewrite: (path) => path.replace(/^\/account/, '/account'),
                 secure: false,
             }
         },
