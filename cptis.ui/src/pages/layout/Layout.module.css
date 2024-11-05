@@ -33,5 +33,11 @@
 .logoStyle {
     background-color: white;
     padding: 4px;
-    margin-right: 5px;
+    margin-right: 10px;
+}
+
+.activeMenuItem {
+    background-color: var(--cptis-yellow);
+    color: white;
+    box-shadow: 2px 2px 2px gray;
 }

@@ -1,10 +1,20 @@
-import { FC, Fragment } from "react";
+import { FC } from "react";
 import useAuthService from '../../useAuthService';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
-import { AddSquare48Regular, ArrowEnterFilled, ArrowExitFilled } from '@fluentui/react-icons';
-import { Button } from '@fluentui/react-components';
+import {
+    AddSquareRegular,
+    ArrowEnterFilled,
+    DataPieRegular,
+    PersonCircleRegular,
+    BuildingPeopleRegular,
+    DocumentBulletListMultipleRegular,
+    SettingsFilled,
+    PowerFilled
+
+} from '@fluentui/react-icons';
 import styles from "./Layout.module.css";
-import { Link } from "react-router-dom";
+import SideMenuItem, { SideMenuItemButton } from "./SideMenuItem";
+import { cptisRoutes } from "../../common/types";
 
 const SideMenu: FC = () => {
     const { login, logout } = useAuthService();
@@ -13,34 +23,70 @@ const SideMenu: FC = () => {
         <nav className="flex flex-col h-full">
             <AuthenticatedTemplate>
                 <ul>
-                    <li className="py-2 hover:bg-gray-200 flex items-center justify-center" title="Add Abuse Report">
-                        <Link to="/new-report">
-                            <AddSquare48Regular />
-                        </Link>
-                    </li>
-                    <li className="py-2 hover:bg-gray-700 rounded">Dashboard</li>
-                    <li className="py-2 hover:bg-gray-700 rounded">Client Demographic</li>
-                    <li className="py-2 hover:bg-gray-700 rounded">Provider</li>
-                    <li className="py-2 hover:bg-gray-700 rounded">Rports</li>
-                    <li className="py-2 hover:bg-gray-700 rounded">Admin</li>
+                    <SideMenuItem
+                        title="Add Abuse Report"
+                        icon={AddSquareRegular}
+                        iconSize={50}
+                        path={cptisRoutes.newReport}
+                    />
+                    <SideMenuItem
+                        title="Dashboard"
+                        text="Dashboard"
+                        icon={DataPieRegular}
+                        iconSize={50}
+                        path={cptisRoutes.dashboard}
+                    />
+                    <SideMenuItem
+                        title="Client Demographic"
+                        text="Client Demographic"
+                        icon={PersonCircleRegular}
+                        iconSize={50}
+                        path={cptisRoutes.clientDemographic}
+                    />
+                    <SideMenuItem
+                        title="Provider"
+                        text="Provider"
+                        icon={BuildingPeopleRegular}
+                        iconSize={50}
+                        path={cptisRoutes.provider}
+                    />
+                    <SideMenuItem
+                        title="Reports"
+                        text="Reports"
+                        icon={DocumentBulletListMultipleRegular}
+                        iconSize={50}
+                        path={cptisRoutes.reports}
+                    />
+                    <SideMenuItem
+                        title="Admin"
+                        text="Admin"
+                        icon={SettingsFilled}
+                        iconSize={50}
+                        path={cptisRoutes.administration}
+                    />
                 </ul>
             </AuthenticatedTemplate>
             <div className="mt-auto">
                 <ul>
-                    <li className="py-2 hover:bg-gray-700 rounded">
-                        <AuthenticatedTemplate>
-                            <Fragment>
-                                <Button appearance="transparent" icon={<ArrowExitFilled />} onClick={logout}>
-                                    Logout
-                                </Button>
-                            </Fragment>
-                        </AuthenticatedTemplate>
-                        <UnauthenticatedTemplate>
-                            <Button appearance="transparent" icon={<ArrowEnterFilled />} onClick={login}>
-                                Login
-                            </Button>
-                        </UnauthenticatedTemplate>
-                    </li>
+                    <AuthenticatedTemplate>
+                        <SideMenuItemButton
+                            title="Logout"
+                            text="Logout"
+                            icon={PowerFilled}
+                            iconSize={50}
+                            onClick={logout}
+                        />
+                    </AuthenticatedTemplate>
+                    <UnauthenticatedTemplate>
+                        <SideMenuItemButton
+                            title="Login"
+                            text="Login"
+                            icon={ArrowEnterFilled}
+                            iconSize={50}
+                            onClick={login}
+                        />
+                    </UnauthenticatedTemplate>
+
                 </ul>
             </div>
         </nav>
