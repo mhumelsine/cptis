@@ -1,4 +1,4 @@
-import { createHashRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./pages/layout/Layout";
 import { initializeIcons } from "@fluentui/react";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
@@ -8,12 +8,16 @@ import { AuthConfig } from "./authTypes";
 import { fetchAuthConfig } from "./api/AuthConfigApi";
 import CptisHomePage from "./pages/CptisHomePage";
 import NotFound from "./pages/NotFound";
+import "./index.css";
+import AbuseReportPage from "./pages/abuse-report/AbuseReportPage";
+import Dashboard from "./pages/dashboard/Dashboard";
+import { cptisRoutes } from "./common/types";
 
 initializeIcons();
 
-const router = createHashRouter([
+const router = createBrowserRouter([
     {
-        path: "/",
+        path: cptisRoutes.root,
         element: <Layout />,
         children: [
             {
@@ -21,11 +25,31 @@ const router = createHashRouter([
                 element: <CptisHomePage />
             },
             {
-                path: "first-route",
-                element: <div>First Route</div>
+                path: cptisRoutes.newReport,
+                element: <AbuseReportPage />
             },
             {
-                path: "*",
+                path: cptisRoutes.dashboard,
+                element: <Dashboard />
+            },
+            {
+                path: cptisRoutes.clientDemographic,
+                element: <> TODO: Create component for: {cptisRoutes.clientDemographic } </>
+            },
+            {
+                path: cptisRoutes.provider,
+                element: <> TODO: Create component for: {cptisRoutes.provider} </>
+            },
+            {
+                path: cptisRoutes.reports,
+                element: <> TODO: Create component for: {cptisRoutes.reports} </>
+            },
+            {
+                path: cptisRoutes.administration,
+                element: <> TODO: Create component for: {cptisRoutes.administration} </>
+            },
+            {
+                path: cptisRoutes.all,
                 element: <NotFound />
             }
         ]

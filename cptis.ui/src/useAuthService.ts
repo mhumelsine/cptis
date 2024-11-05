@@ -22,6 +22,7 @@ const useAuthService = () => {
             const callbackId = auth.msalInstance.addEventCallback((event:any) => {
                 if (event?.eventType === EventType.LOGIN_SUCCESS) {
                     const account = event?.payload?.account;
+                    console.log(event.payload);
                     if (account) {
                         setUserInfo({
                             userName: account.name ?? "",
