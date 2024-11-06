@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using cptis.domain.ClientDemographics;
+using Microsoft.EntityFrameworkCore;
 
 namespace cptis.infrastructure.Database
 {
     public class CptisContext: DbContext
-    {
-       /*  public DbSet<PlaceHolder> PlaceHolder { get; set; } */
-
+    { 
+        public DbSet<ClientDemographic> ClientDemographics { get; set; }
 
         public CptisContext(DbContextOptions options) : base(options)
         {
