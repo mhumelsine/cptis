@@ -11,11 +11,11 @@ const Layout: FC = () => {
     return <div className={styles.layout}>
         <TopMenu />       
 
-        <div className="flex flex-1 overflow-hidden">
+        <div className="tw-flex tw-flex-1 tw-overflow-hidden">
             <SideMenu />            
 
             {/* Main Content */}
-            <main className={`${styles.mainContent} flex-1 p-6 bg-gray-100 overflow-auto`}>
+            <main className={`${styles.mainContent} tw-flex-1 tw-p-6 tw-bg-gray-100 tw-overflow-auto`}>
                 <AuthenticatedTemplate>
                     <Outlet />
                 </AuthenticatedTemplate>

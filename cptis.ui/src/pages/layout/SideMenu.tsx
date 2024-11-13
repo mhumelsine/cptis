@@ -19,8 +19,8 @@ import { cptisRoutes } from "../../common/types";
 const SideMenu: FC = () => {
     const { login, logout } = useAuthService();
 
-    return <aside className={`${styles.sidebar} w-[125px] flex flex-col border-r-2 border-black-600`}>
-        <nav className="flex flex-col h-full">
+    return <aside className={`${styles.sidebar} tw-w-[125px] tw-flex tw-flex-col tw-border-r-2 tw-border-black-600`}>
+        <nav className="tw-flex tw-flex-col tw-h-full">
             <AuthenticatedTemplate>
                 <ul>
                     <SideMenuItem
@@ -66,7 +66,7 @@ const SideMenu: FC = () => {
                     />
                 </ul>
             </AuthenticatedTemplate>
-            <div className="mt-auto">
+            <div className="tw-mt-auto">
                 <ul>
                     <AuthenticatedTemplate>
                         <SideMenuItemButton

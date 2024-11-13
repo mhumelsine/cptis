@@ -78,8 +78,8 @@ const DashboardGrid: FC = () => {
     };
 
     return (<>
-        <div className="flex flex-col items-center" >
-            <div className="w-full overflow-auto" >
+        <div className="tw-flex tw-flex-col tw-items-center" >
+            <div className="tw-w-full tw-overflow-auto" >
                 <DetailsList
                     items={paginatedItems}
                     columns={columns}
@@ -96,11 +96,11 @@ const DashboardGrid: FC = () => {
 
                         return (
                             <div>
-                                <div className="flex items-center bg-white pl-2" >
+                                <div className="tw-flex tw-items-center tw-bg-white tw-pl-2" >
 
                                     <Icon
                                         iconName={toggleIcon}
-                                        className="cursor-pointer mr-2 bg-white"
+                                        className="tw-cursor-pointer tw-mr-2 tw-bg-white"
                                         onClick={() => toggleClientExpansion(props.item.ClientID)
                                         }
                                     />
@@ -109,8 +109,8 @@ const DashboardGrid: FC = () => {
 
                                 {
                                     isExpanded && (
-                                        <div className="m-4" >
-                                            <div className="text-xl font-bold mb-2 ml-1" >
+                                        <div className="tw-m-4" >
+                                            <div className="tw-text-xl tw-font-bold tw-mb-2 tw-ml-1" >
                                                 Active Abuse Reports
                                             </div>
                                             < DetailsList
@@ -130,7 +130,7 @@ const DashboardGrid: FC = () => {
             </div>
 
             {/* Pagination controls */}
-            <div className="flex items-center justify-center space-x-4 mt-4" >
+            <div className="tw-flex tw-items-center tw-justify-center tw-space-x-4 tw-mt-4" >
                 <PrimaryButton
                     text="« First"
                     onClick={() => goToPage(1)}
@@ -151,7 +151,7 @@ const DashboardGrid: FC = () => {
                         onChange={(e) => goToPage(Number(e.target.value))}
                         min="1"
                         max={totalPages}
-                        className="mx-2 w-16 p-1 text-center border border-gray-300 rounded-md"
+                        className="tw-mx-2 tw-w-16 tw-p-1 tw-text-center tw-border tw-border-gray-300 tw-rounded-md"
                     />
                     of {totalPages}
                 </span>

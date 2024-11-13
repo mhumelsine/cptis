@@ -14,11 +14,11 @@ const TopMenu: FC = () => {
                     <div>Child Protection Team Information System</div>
                 </span>
             </h3>
-            <div className="flex flex-inline">
+            <div className="tw-flex tw-flex-inline">
                 <div className="">
-                    <Field className=" bg-white rounded-full mr-4 mt-2">
+                    <Field className=" tw-bg-white tw-rounded-full tw-mr-4 tw-mt-2">
                         <SearchBox
-                            className={"text-black mx-1"}
+                            className={"tw-text-black tw-mx-1"}
                             contentBefore={<PersonRegular />}
                             placeholder="        search client"
                         />

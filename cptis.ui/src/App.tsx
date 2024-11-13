@@ -12,6 +12,7 @@ import "./index.css";
 import AbuseReportPage from "./pages/abuse-report/AbuseReportPage";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { cptisRoutes } from "./common/types";
+import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 
 initializeIcons();
 
@@ -72,9 +73,11 @@ const App = () => {
         jsonConfig: {} as AuthConfig
     };
 
-    return <MsalProvider instance={authData.msalInstance}>
+    return <FluentProvider theme={webLightTheme}>
+        <MsalProvider instance={authData.msalInstance}>
         <RouterProvider router={router} />
-    </MsalProvider>
+        </MsalProvider>
+    </FluentProvider>
 };
 
 export default App;
