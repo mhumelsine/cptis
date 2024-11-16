@@ -1,15 +1,16 @@
-import { FC, useState } from "react";
+import React, { FC, useState, useCallback, MouseEvent } from "react";
 import {
     DetailsList,
     DetailsListLayoutMode,
     IColumn,
     SelectionMode,
-    PrimaryButton,
     DetailsRow,
     IDetailsRowProps,
     IDetailsRowStyles,
-    Icon,
+    Icon
 } from '@fluentui/react';
+import PaginatedGrid from "../../common/controls/grid/PaginatedGrid";
+import { PaginatedItems } from "../../common/controls/grid/types";
 
 interface ClientItem {
     ClientID: number;
@@ -27,6 +28,7 @@ interface ReportItem {
     ReportCounty: string;
 }
 
+/*  MOCKING DATA FOR TESTING */
 const items: ClientItem[] = Array.from({ length: 20 }, (_, i) => ({
     ClientID: i + 1,
     Name: `Client ${i + 1}`,
@@ -42,133 +44,103 @@ const items: ClientItem[] = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 const columns: IColumn[] = [
-    { key: 'toggle', name: '', fieldName: 'toggle', minWidth: 20, maxWidth: 30 },
-    { key: 'ClientID', name: 'ClientID', fieldName: 'ClientID', minWidth: 50, maxWidth: 75, isResizable: true },
-    { key: 'Name', name: 'Name', fieldName: 'Name', minWidth: 100, maxWidth: 200, isResizable: true },
-    { key: 'DateOfBirth', name: 'Date of Birth', fieldName: 'DateOfBirth', minWidth: 100, maxWidth: 150, isResizable: true },
-    { key: 'Gender', name: 'Gender', fieldName: 'Gender', minWidth: 50, maxWidth: 75, isResizable: true },
-    { key: 'Info', name: 'Info', fieldName: 'Info', minWidth: 200, maxWidth: 300, isResizable: true }
+    { key: 'ClientID', name: 'ClientID', fieldName: 'ClientID', minWidth: 50, maxWidth: 75, isResizable: false },
+    { key: 'Name', name: 'Name', fieldName: 'Name', minWidth: 100, maxWidth: 200, isResizable: false },
+    { key: 'DateOfBirth', name: 'Date of Birth', fieldName: 'DateOfBirth', minWidth: 100, maxWidth: 150, isResizable: false },
+    { key: 'Gender', name: 'Gender', fieldName: 'Gender', minWidth: 50, maxWidth: 75, isResizable: false },
+    { key: 'Info', name: 'Info', fieldName: 'Info', minWidth: 200, isResizable: false }
 ];
 
 const reportColumns: IColumn[] = [
-    { key: 'ReportNumber', name: 'Report number', fieldName: 'ReportNumber', minWidth: 100, maxWidth: 150, isResizable: true },
-    { key: 'DateReported', name: 'Date reported', fieldName: 'DateReported', minWidth: 100, maxWidth: 150, isResizable: true },
-    { key: 'CptReviewDate', name: 'CPT review date', fieldName: 'CptReviewDate', minWidth: 100, maxWidth: 150, isResizable: true },
-    { key: 'ReportCounty', name: 'Report county', fieldName: 'ReportCounty', minWidth: 100, maxWidth: 150, isResizable: true }
+    { key: 'ReportNumber', name: 'Report number', fieldName: 'ReportNumber', minWidth: 100, maxWidth: 150, isResizable: false },
+    { key: 'DateReported', name: 'Date reported', fieldName: 'DateReported', minWidth: 100, maxWidth: 150, isResizable: false },
+    { key: 'CptReviewDate', name: 'CPT review date', fieldName: 'CptReviewDate', minWidth: 100, maxWidth: 150, isResizable: false },
+    { key: 'ReportCounty', name: 'Report county', fieldName: 'ReportCounty', minWidth: 100, maxWidth: 150, isResizable: false }
 ];
 
-const pageSize = 5;
+const pItems: PaginatedItems<ClientItem> = {
+    items: items.slice(0, 5),
+    paging: {
+        totalItems: items.length,
+        totalPages: Math.ceil(items.length / 5),
+        pageNumber: 1,
+        pageSize: 5,
+        sort: [],
+        order: 'asc'
+    }
+};
+/*  MOCKING DATA FOR TESTING  */
+
 
 const DashboardGrid: FC = () => {
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [expandedClients, setExpandedClients] = useState<Record<number, boolean>>({});
+    const [expandedClients, setExpandedClients] = useState<Record<any, boolean>>({});
+    const [paginatedItems, setPaginatedItems] = useState<PaginatedItems<ClientItem>>(pItems);
 
-    const totalPages = Math.ceil(items.length / pageSize);
-    const startIndex = (currentPage - 1) * pageSize;
-    const paginatedItems = items.slice(startIndex, startIndex + pageSize);
+    const toggleClientExpansion = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        const clientId = event.currentTarget.id;
 
-    const goToPage = (page: number) => {
-        if (page > 0 && page <= totalPages) {
-            setCurrentPage(page);
-        }
-    };
-
-    const toggleClientExpansion = (clientId: number) => {
         setExpandedClients((prev) => ({ ...prev, [clientId]: !prev[clientId] }));
-    };
+    }, []);
 
-    return (<>
-        <div className="tw-flex tw-flex-col tw-items-center" >
-            <div className="tw-w-full tw-overflow-auto" >
-                <DetailsList
-                    items={paginatedItems}
-                    columns={columns}
-                    setKey="set"
-                    layoutMode={DetailsListLayoutMode.justified}
-                    selectionMode={SelectionMode.none}
-                    onRenderRow={(props?: IDetailsRowProps) => {
-                        if (!props) return null;
+    const onRenderRow = useCallback((props?: IDetailsRowProps) => {
+        if (!props) return null;
 
-                        const rowStyles: Partial<IDetailsRowStyles> = { root: { borderBottom: '1px solid #eaeaea' } };
+        const rowStyles: Partial<IDetailsRowStyles> = { root: { borderBottom: '1px solid #eaeaea', paddingLeft: '0' } };
 
-                        const isExpanded = expandedClients[props.item.ClientID];
-                        const toggleIcon = isExpanded ? 'ChevronDown' : 'ChevronRight';
+        const isExpanded = expandedClients[props.item.ClientID];
+        const toggleIcon = isExpanded ? 'ChevronDown' : 'ChevronRight';
 
-                        return (
-                            <div>
-                                <div className="tw-flex tw-items-center tw-bg-white tw-pl-2" >
-
-                                    <Icon
-                                        iconName={toggleIcon}
-                                        className="tw-cursor-pointer tw-mr-2 tw-bg-white"
-                                        onClick={() => toggleClientExpansion(props.item.ClientID)
-                                        }
-                                    />
-                                    < DetailsRow {...props} styles={rowStyles} />
-                                </div>
-
-                                {
-                                    isExpanded && (
-                                        <div className="tw-m-4" >
-                                            <div className="tw-text-xl tw-font-bold tw-mb-2 tw-ml-1" >
-                                                Active Abuse Reports
-                                            </div>
-                                            < DetailsList
-                                                items={(props.item as ClientItem).Reports
-                                                }
-                                                columns={reportColumns}
-                                                setKey="subGrid"
-                                                layoutMode={DetailsListLayoutMode.justified}
-                                                selectionMode={SelectionMode.none}
-                                            />
-                                        </div>
-                                    )}
-                            </div>
-                        );
-                    }}
-                />
-            </div>
-
-            {/* Pagination controls */}
-            <div className="tw-flex tw-items-center tw-justify-center tw-space-x-4 tw-mt-4" >
-                <PrimaryButton
-                    text="« First"
-                    onClick={() => goToPage(1)}
-                    disabled={currentPage === 1}
-                />
-                < PrimaryButton
-                    text="‹ Prev"
-                    onClick={() => goToPage(currentPage - 1)}
-                    disabled={currentPage === 1}
-                />
-
-                {/* Page number input */}
-                <span>
-                    Page
-                    < input
-                        type="number"
-                        value={currentPage}
-                        onChange={(e) => goToPage(Number(e.target.value))}
-                        min="1"
-                        max={totalPages}
-                        className="tw-mx-2 tw-w-16 tw-p-1 tw-text-center tw-border tw-border-gray-300 tw-rounded-md"
+        return (
+            <div key={props.item.ClientID}> {/* Use key based on the ClientID */}
+                <div className="tw-flex tw-items-center tw-bg-white tw-pl-2">
+                    <Icon
+                        id={props.item.ClientID.toString()}
+                        iconName={toggleIcon}
+                        className="tw-cursor-pointer tw-mr-2 tw-bg-white"
+                        onClick={toggleClientExpansion}
                     />
-                    of {totalPages}
-                </span>
+                    <DetailsRow key={`${props.item.ClientID}-${isExpanded}`} {...props} styles={rowStyles} />
+                </div>
 
-                < PrimaryButton
-                    text="Next ›"
-                    onClick={() => goToPage(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                />
-                < PrimaryButton
-                    text="Last »"
-                    onClick={() => goToPage(totalPages)}
-                    disabled={currentPage === totalPages}
-                />
+                {isExpanded && (
+                    <div className="tw-m-4">
+                        <div className="tw-text-xl tw-font-bold tw-mb-2 tw-ml-1">
+                            Active Abuse Reports
+                        </div>
+                        <DetailsList
+                            items={(props.item as ClientItem).Reports}
+                            columns={reportColumns}
+                            setKey={'subGrid'}
+                            layoutMode={DetailsListLayoutMode.justified}
+                            selectionMode={SelectionMode.none}
+                        />
+                    </div>
+                )}
             </div>
-        </div>
-    </>);
+        );
+    }, [expandedClients, toggleClientExpansion]);
+
+    return <PaginatedGrid
+        key={JSON.stringify(expandedClients)}
+        columns={columns}
+        paginatedItems={paginatedItems}
+        onGoToPage={(page: number) => {
+            const slicedItems = items.slice((page - 1) * pItems.paging.pageSize, page * pItems.paging.pageSize);
+           
+            setPaginatedItems({
+                ...paginatedItems,
+                items: slicedItems,
+                paging: {
+                    ...paginatedItems.paging,
+                    pageNumber: page
+                }
+            });
+            console.log(`Fetch data get page ${page}`);
+        }}
+        enableFilters
+        onRenderRow={onRenderRow}
+    />;
 };
 
 export default DashboardGrid;

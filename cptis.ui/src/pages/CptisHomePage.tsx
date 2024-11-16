@@ -2,7 +2,7 @@ import * as React from 'react';
 
 const CptisHomePage: React.FC = () => {
  
-    
+    console.log("CptisHomePage");
     return (
         <div>
             <h1>CPTIS</h1>

@@ -4,7 +4,7 @@ import DashboardGrid from "./DashboardGrid";
 import SearchBar from "./SearchBar";
 
 const Dashboard: FC = () => {
-
+    console.log("Dashboard");
     return (<>
         <DashboardBar />
         <SearchBar />

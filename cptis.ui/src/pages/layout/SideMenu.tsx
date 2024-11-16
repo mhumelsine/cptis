@@ -1,5 +1,5 @@
 import { FC } from "react";
-import useAuthService from '../../useAuthService';
+import useAuthService from '../../common/hooks/useAuthService';
 import { AuthenticatedTemplate, UnauthenticatedTemplate } from '@azure/msal-react';
 import {
     AddSquareRegular,

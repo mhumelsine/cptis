@@ -9,7 +9,6 @@ const LandingPage: React.FC = () => {
         height: '80vh'
     };
 
-
     return (<React.Fragment> <div style={centerDiv} >
                 <img src="./flhealthLogo.svg" width={"150px"} height={"150px"} />
                 <h3>C P T I S</h3>

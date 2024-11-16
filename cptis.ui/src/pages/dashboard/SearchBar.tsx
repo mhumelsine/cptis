@@ -3,8 +3,8 @@ import {
     ClipboardBulletListRtlRegular,
     SearchRegular
 } from '@fluentui/react-icons';
-import InputText from '../../common/controls/InputText';
-import { InputDropdown } from '../../common/controls/InputDropdown';
+import InputText from '../../common/controls/inputs/InputText';
+import { InputDropdown } from '../../common/controls/inputs/InputDropdown';
 import { CompoundButton } from '@fluentui/react-components';
 const SearchBar: React.FC = () => {
     return (
