@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, MouseEvent } from "react";
+import { FC, useState, useCallback, MouseEvent } from "react";
 import {
     DetailsList,
     DetailsListLayoutMode,
@@ -28,21 +28,6 @@ interface ReportItem {
     ReportCounty: string;
 }
 
-/*  MOCKING DATA FOR TESTING */
-const items: ClientItem[] = Array.from({ length: 20 }, (_, i) => ({
-    ClientID: i + 1,
-    Name: `Client ${i + 1}`,
-    DateOfBirth: new Date(1980 + i % 20, i % 12, i % 28 + 1).toLocaleDateString(),
-    Gender: i % 2 === 0 ? 'Male' : 'Female',
-    Info: `Info about Client ${i + 1}`,
-    Reports: Array.from({ length: 3 }, (__, j) => ({
-        ReportNumber: `RPT-${i + 1}-${j + 1}`,
-        DateReported: new Date().toLocaleDateString(),
-        CptReviewDate: new Date().toLocaleDateString(),
-        ReportCounty: `County ${j + 1}`
-    }))
-}));
-
 const columns: IColumn[] = [
     { key: 'ClientID', name: 'ClientID', fieldName: 'ClientID', minWidth: 50, maxWidth: 75, isResizable: false },
     { key: 'Name', name: 'Name', fieldName: 'Name', minWidth: 100, maxWidth: 200, isResizable: false },
@@ -51,31 +36,28 @@ const columns: IColumn[] = [
     { key: 'Info', name: 'Info', fieldName: 'Info', minWidth: 200, isResizable: false }
 ];
 
-const reportColumns: IColumn[] = [
+const subGridColumns: IColumn[] = [
     { key: 'ReportNumber', name: 'Report number', fieldName: 'ReportNumber', minWidth: 100, maxWidth: 150, isResizable: false },
     { key: 'DateReported', name: 'Date reported', fieldName: 'DateReported', minWidth: 100, maxWidth: 150, isResizable: false },
     { key: 'CptReviewDate', name: 'CPT review date', fieldName: 'CptReviewDate', minWidth: 100, maxWidth: 150, isResizable: false },
     { key: 'ReportCounty', name: 'Report county', fieldName: 'ReportCounty', minWidth: 100, maxWidth: 150, isResizable: false }
 ];
 
-const pItems: PaginatedItems<ClientItem> = {
-    items: items.slice(0, 5),
+const defaultPaginatedItems: PaginatedItems<any> = {
+    items: [],
     paging: {
-        totalItems: items.length,
-        totalPages: Math.ceil(items.length / 5),
+        totalItems: 0,
+        totalPages: 0,
         pageNumber: 1,
-        pageSize: 5,
+        pageSize: 10,
         sort: [],
         order: 'asc'
     }
 };
-/*  MOCKING DATA FOR TESTING  */
-
 
 const DashboardGrid: FC = () => {
     const [expandedClients, setExpandedClients] = useState<Record<any, boolean>>({});
-    const [paginatedItems, setPaginatedItems] = useState<PaginatedItems<ClientItem>>(pItems);
-
+  
     const toggleClientExpansion = useCallback((event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         const clientId = event.currentTarget.id;
@@ -110,7 +92,7 @@ const DashboardGrid: FC = () => {
                         </div>
                         <DetailsList
                             items={(props.item as ClientItem).Reports}
-                            columns={reportColumns}
+                            columns={subGridColumns}
                             setKey={'subGrid'}
                             layoutMode={DetailsListLayoutMode.justified}
                             selectionMode={SelectionMode.none}
@@ -124,18 +106,8 @@ const DashboardGrid: FC = () => {
     return <PaginatedGrid
         key={JSON.stringify(expandedClients)}
         columns={columns}
-        paginatedItems={paginatedItems}
+        paginatedItems={defaultPaginatedItems}
         onGoToPage={(page: number) => {
-            const slicedItems = items.slice((page - 1) * pItems.paging.pageSize, page * pItems.paging.pageSize);
-           
-            setPaginatedItems({
-                ...paginatedItems,
-                items: slicedItems,
-                paging: {
-                    ...paginatedItems.paging,
-                    pageNumber: page
-                }
-            });
             console.log(`Fetch data get page ${page}`);
         }}
         enableFilters

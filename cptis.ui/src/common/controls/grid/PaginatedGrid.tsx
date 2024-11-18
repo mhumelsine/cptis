@@ -30,7 +30,7 @@ const PaginatedGrid = <T,>(props: PaginatedGridProps<T>) => {
                     id="firstPage"
                     icon={<small><RewindRegular /></small>}
                     onClick={handleGotToPage}
-                    disabled={currentPage === 1}
+                    disabled={currentPage === 1 || totalPages === 0}
                     style={{
                         paddingTop: '0',
                         paddingBottom: '0',
@@ -47,7 +47,7 @@ const PaginatedGrid = <T,>(props: PaginatedGridProps<T>) => {
                     id="previousPage"
                     icon={<PreviousRegular fontSize="25px" />}
                     onClick={handleGotToPage}
-                    disabled={currentPage === 1}
+                    disabled={currentPage === 1 || totalPages === 0}
                     style={{
                         paddingTop: '0',
                         paddingBottom: '0',
@@ -68,7 +68,7 @@ const PaginatedGrid = <T,>(props: PaginatedGridProps<T>) => {
                     id="nextPage"
                     icon={<NextRegular fontSize="25px" />}
                     onClick={handleGotToPage}
-                    disabled={currentPage === totalPages}
+                    disabled={totalPages === 0 || currentPage === totalPages}
                     style={{
                         paddingTop: '0',
                         paddingBottom: '0',
@@ -86,7 +86,7 @@ const PaginatedGrid = <T,>(props: PaginatedGridProps<T>) => {
                     id="lastPage"
                     icon={<small><FastForwardRegular /></small>}
                     onClick={handleGotToPage}
-                    disabled={currentPage === totalPages}
+                    disabled={currentPage === totalPages || totalPages === 0}
                     style={{
                         paddingTop: '0',
                         paddingBottom: '0',
