@@ -4,14 +4,14 @@ import { initializeIcons } from "@fluentui/react";
 import { Configuration, PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
 import { useQuery } from "@tanstack/react-query";
-import { AuthConfig } from "./authTypes";
 import { fetchAuthConfig } from "./api/AuthConfigApi";
 import CptisHomePage from "./pages/CptisHomePage";
 import NotFound from "./pages/NotFound";
 import "./index.css";
 import AbuseReportPage from "./pages/abuse-report/AbuseReportPage";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { cptisRoutes } from "./common/types";
+import { cptisRoutes, AuthConfig } from "./common/types";
+import { FluentProvider, webLightTheme } from '@fluentui/react-components';
 
 initializeIcons();
 
@@ -72,9 +72,11 @@ const App = () => {
         jsonConfig: {} as AuthConfig
     };
 
-    return <MsalProvider instance={authData.msalInstance}>
+    return <FluentProvider theme={webLightTheme}>
+        <MsalProvider instance={authData.msalInstance}>
         <RouterProvider router={router} />
-    </MsalProvider>
+        </MsalProvider>
+    </FluentProvider>
 };
 
 export default App;

@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
-    --cptis-orange: #f78ele;
     --cptis-cyan: #00aeef;
+    --cptis-orange: #f78e1e;
     --cptis-yellow: #ffcf01;
     --cptis-green: #8db33F;
     --cptis-light-yellow: #fff797;
