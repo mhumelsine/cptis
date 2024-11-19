@@ -3,6 +3,7 @@ import styles from "./Layout.module.css";
 import { Persona } from "@fluentui/react";
 import { Field, SearchBox } from "@fluentui/react-components";
 import { PersonRegular } from "@fluentui/react-icons";
+import { AuthenticatedTemplate } from "@azure/msal-react";
 
 const TopMenu: FC = () => {
 
@@ -14,19 +15,26 @@ const TopMenu: FC = () => {
                     <div>Child Protection Team Information System</div>
                 </span>
             </h3>
-            <div className="flex flex-inline">
-                <div className="">
-                    <Field className=" bg-white rounded-full mr-4 mt-2">
-                        <SearchBox
-                            className={"text-black mx-1"}
-                            contentBefore={<PersonRegular />}
-                            placeholder="        search client"
-                        />
-                    </Field>
+            <AuthenticatedTemplate>
+                <div className="tw-flex tw-flex-inline">
+                    <div className="">
+                        <Field className="tw-mr-4 tw-mt-2">
+                            <SearchBox
+                                className={"tw-text-black tw-mx-1"}
+                                contentBefore={<PersonRegular />}
+                                placeholder="        search client"
+                                style={{
+                                    borderRadius: '100px',
+                                    borderBottom: '0',
+                                }}
+                            />
+                        </Field>
+
+                    </div>
+                    <Persona />
                 </div>
-                <Persona />
-            </div>
+            </AuthenticatedTemplate>
         </div>
-    </header>
+    </header >
 };
 export default TopMenu;

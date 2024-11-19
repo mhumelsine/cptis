@@ -1,5 +1,5 @@
 import { EventType, PublicClientApplication } from "@azure/msal-browser";
-import { AuthConfig } from "../authTypes";
+import { AuthConfig } from "../common/types";
 
 export const fetchAuthConfig = async () => {
 

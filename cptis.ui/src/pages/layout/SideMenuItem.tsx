@@ -13,7 +13,7 @@ type BaseProps ={
 
 type ItemProps = BaseProps & { path: cptisRoutes; }
 type ButtonProps = BaseProps & { onClick: () => void; }
-const twStyles = "py-2 hover:bg-gray-200 flex items-center justify-center text-center";
+const twStyles = "tw-py-2 tw-hover:bg-gray-200 tw-flex tw-items-center tw-justify-center tw-text-center";
 
 const SideMenuItem: FC<ItemProps> = ({ title, icon, text, path, iconSize }) => {
     const Icon = icon;

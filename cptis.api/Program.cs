@@ -1,5 +1,4 @@
 using cptis.api.Configuration;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 
@@ -54,9 +53,6 @@ builder.Services
        .RegisterServices(
             builder.Configuration,
             typeof(IInjectableConfiguration).Assembly);
-
-
-//builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddCors(options =>
 {
