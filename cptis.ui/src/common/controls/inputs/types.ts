@@ -8,14 +8,16 @@ export const useInputStyles = makeStyles({
         gridTemplateRows: "repeat(1fr)",
         justifyItems: "start",
         gap: "2px",
-        maxWidth: "400px",
+       
     },
     text: {
         display: "flex",
         flexDirection: "column",
         gap: "2px",
-        maxWidth: "400px",
-    }
+    },
+    maxWidth: {
+        maxWidth: "300px",
+      },
     // TODO: change label orientation?  
 });
 
