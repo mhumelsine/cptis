@@ -4,11 +4,12 @@ import { InfoLabel } from "@fluentui/react-components";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 interface CustomInputProps {
+  id?: string;
   label: string;
   placeholder?: string;
   type?: "text" | "email" | "number" | "password";
   errorMessage?: string;
-  register: UseFormRegisterReturn;
+  register?: UseFormRegisterReturn;
   validationState?: "error" | "warning" | "success";
   required?: boolean;
   info?: string;
@@ -16,6 +17,7 @@ interface CustomInputProps {
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({
+  id,
   label,
   placeholder,
   type = "text",
@@ -28,6 +30,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
 }) => {
   return (
     <Field
+      id={id}
       label={
         info
           ? ({
@@ -46,7 +49,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
       required={required}
     >
       <Input
-        {...register}
+        {...(register || {})}
         type={type}
         placeholder={placeholder}
         disabled={disabled}

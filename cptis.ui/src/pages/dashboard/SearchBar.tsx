@@ -32,7 +32,11 @@ const SearchBar: React.FC = () => {
 
           <div className="tw-grid xl:tw-grid-cols-2 tw-gap-2">
             <div className=" ">
-              <CustomInput id="searchText" placeholder="Abuse Numbers" />
+              <CustomInput
+                id="searchText"
+                label=""
+                placeholder="Abuse Numbers"
+              />
             </div>
 
             <div>
