@@ -7,15 +7,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cptis.api", "cptis.api\cpti
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "cptis.ui", "cptis.ui\cptis.ui.esproj", "{14A6B3EC-48DD-4BD4-B704-165C00A974BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.domain", "cptis.domain\cptis.domain.csproj", "{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cptis.domain", "cptis.domain\cptis.domain.csproj", "{1CC3AC05-4985-429B-B74D-0BE37FD8AF8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.infrastructure", "cptis.infrastructure\cptis.infrastructure.csproj", "{032C9931-BA43-4D7C-9CE2-809B66ECF62B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cptis.infrastructure", "cptis.infrastructure\cptis.infrastructure.csproj", "{032C9931-BA43-4D7C-9CE2-809B66ECF62B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.application", "cptis.application\cptis.application.csproj", "{53EC072E-5E88-49F3-AACC-143AF2F9F742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cptis.application", "cptis.application\cptis.application.csproj", "{53EC072E-5E88-49F3-AACC-143AF2F9F742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cptis.tests", "cptis.tests\cptis.tests.csproj", "{7F493394-F7EC-43AB-BEFF-928A9493FA92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cptis.tests", "cptis.tests\cptis.tests.csproj", "{7F493394-F7EC-43AB-BEFF-928A9493FA92}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{1FC9C7FC-6644-4CE4-9F1A-A37CA58B4BAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipeline", "pipeline", "{94AF31F3-CC1B-4817-B98B-8C4CDB063C07}"
+	ProjectSection(SolutionItems) = preProject
+		dev-pipeline.yml = dev-pipeline.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

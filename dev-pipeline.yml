@@ -1,0 +1,60 @@
+trigger:
+- dev
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  webAppName: 'cptis-web' 
+  resourceGroupName: 'RG_CMS_CPTIS_DEV_eastus'
+  dotnetSdkVersion: '8.0.x'
+
+stages:
+- stage: Build
+  displayName: "Build Stage"
+  jobs:
+  - job: Build
+    displayName: "Build the application"
+    steps:
+    - task: UseDotNet@2
+      displayName: "Install .NET SDK"
+      inputs:
+        version: $(dotnetSdkVersion)
+
+    - script: |
+        echo "##[section]Starting build..."
+        dotnet restore
+        dotnet build --configuration Release --no-restore
+      displayName: "Restore and Build"
+
+    - script: |
+        echo "##[section]Publishing the app..."
+        dotnet publish -c Release -o $(Build.ArtifactStagingDirectory)/publish
+      displayName: "Publish"
+
+    - publish: $(Build.ArtifactStagingDirectory)/publish
+      artifact: drop
+      displayName: "Publish Artifact"
+
+- stage: Deploy
+  displayName: "Deploy Stage"
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    displayName: "Deploy to Azure Web App"
+    environment: 'Development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+
+          - task: AzureWebApp@1
+            displayName: "Deploy to Azure Web App"
+            inputs:
+              azureSubscription: 'DOHcom_Managed_NoSla_CPTIS'  
+              appType: 'webAppLinux'
+              appName: $(webAppName)
+              resourceGroupName: $(resourceGroupName)
+              package: $(Pipeline.Workspace)/drop
