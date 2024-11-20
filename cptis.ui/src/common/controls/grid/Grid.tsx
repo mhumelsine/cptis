@@ -8,9 +8,9 @@ import {
   ITooltipHostProps,
   IDetailsListStyles,
 } from "@fluentui/react";
-import InputText from "../inputs/InputText";
 import { GridProps } from "./types";
 import useDebounce from "../../hooks/useDebounce";
+import { Input } from "@fluentui/react-components";
 
 const Grid = <T,>(props: GridProps<T>) => {
   const {
@@ -90,7 +90,7 @@ const Grid = <T,>(props: GridProps<T>) => {
         return (
           <div className={`${tooltipHostProps?.hostClassName} tw-ml-2`}>
             <span>{tooltipHostProps?.children}</span>
-            <InputText
+            <Input
               placeholder="Filter"
               onChange={(event) => handleFilterChange(event, column.name)}
               className="tw-ml-2"

@@ -3,13 +3,14 @@ import {
   ClipboardBulletListRtlRegular,
   SearchRegular,
 } from "@fluentui/react-icons";
-import InputText from "../../common/controls/inputs/InputText";
 import { InputDropdown } from "../../common/controls/inputs/InputDropdown";
 import { CompoundButton } from "@fluentui/react-components";
-import InputCalendar from "../../common/controls/inputs/InputCalendar";
+import CustomInput from "../../common/controls/inputs/CustomInput";
+
 const SearchBar: React.FC = () => {
   const cardStyle =
     "tw-p-4 tw-border tw-border-gray-300 tw-rounded-lg tw-bg-white tw-mb-4";
+
   return (
     <form
       onSubmit={(e) => {
@@ -31,7 +32,7 @@ const SearchBar: React.FC = () => {
 
           <div className="tw-grid xl:tw-grid-cols-2 tw-gap-2">
             <div className=" ">
-              <InputText id="searchText" placeholder="Abuse Number" />
+              <CustomInput id="searchText" placeholder="Abuse Numbers" />
             </div>
 
             <div>
