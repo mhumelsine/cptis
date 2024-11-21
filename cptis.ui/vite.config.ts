@@ -6,7 +6,7 @@ import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
 
-const isCI = env.CI === 'true'; // Detect if running in a CI/CD pipeline
+const isCI = env.CI === 'true'; 
 
 // Only configure HTTPS locally
 let httpsOptions = undefined;
@@ -21,30 +21,35 @@ if (!isCI) {
     const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
     const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
-    if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-        if (
-            child_process.spawnSync(
-                'dotnet',
-                [
-                    'dev-certs',
-                    'https',
-                    '--export-path',
-                    certFilePath,
-                    '--format',
-                    'Pem',
-                    '--no-password',
-                ],
-                { stdio: 'inherit' }
-            ).status !== 0
-        ) {
-            throw new Error('Could not create certificate.');
-        }
-    }
+    try{
+         if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+             if (
+                 child_process.spawnSync(
+                     'dotnet',
+                     [
+                         'dev-certs',
+                         'https',
+                         '--export-path',
+                         certFilePath,
+                         '--format',
+                         'Pem',
+                         '--no-password',
+                     ],
+                     { stdio: 'inherit' }
+                 ).status !== 0
+             ) {
+                 throw new Error('Could not create certificate.');
+             }
+         }
 
-    httpsOptions = {
-        key: fs.readFileSync(keyFilePath),
-        cert: fs.readFileSync(certFilePath),
-    };
+         httpsOptions = {
+             key: fs.readFileSync(keyFilePath),
+             cert: fs.readFileSync(certFilePath),
+         };
+         
+        }catch(e){
+            console.error(e);
+        }
 }
 
 const target = env.ASPNETCORE_HTTPS_PORT
