@@ -34,6 +34,13 @@ stages:
       displayName: 'Set environment variables'
 
     - script: |
+        echo "Listing environment variables:"
+        env | sort
+        echo "CI: $CI"
+        echo "NODE_ENV: $NODE_ENV"
+      displayName: "Print environment variables"
+      
+    - script: |
         echo "##[section]Starting .NET build process..."
         dotnet restore
         dotnet build --configuration Release --no-restore
