@@ -5,7 +5,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  webAppName: 'cptis-web'
+  webAppName: 'cptisdev'
   resourceGroupName: 'RG_CMS_CPTIS_DEV_eastus'
   dotnetSdkVersion: '8.0.x'
   nodeVersion: '18.x'
