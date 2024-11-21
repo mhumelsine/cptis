@@ -35,13 +35,6 @@ stages:
       displayName: 'Set environment variables'
 
     - script: |
-        echo "Listing environment variables:"
-        env | sort
-        echo "CI: $CI"
-        echo "NODE_ENV: $NODE_ENV"
-      displayName: "Print environment variables"
-
-    - script: |
         echo "##[section]Starting .NET build process..."
         dotnet restore
         dotnet build --configuration Release --no-restore
@@ -56,6 +49,12 @@ stages:
       env:
         CI: $(CI)
       displayName: "Build Frontend"
+
+    - script: |
+        echo "Web App Name: $(webAppName)"
+        echo "Resource Group: $(resourceGroupName)"
+        echo "Package Path: $(Pipeline.Workspace)/drop"
+      displayName: "Print Debug Info"
 
     - script: |
         echo "##[section]Publishing the app..."
