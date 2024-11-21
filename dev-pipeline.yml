@@ -5,9 +5,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  webAppName: 'cptis-web' 
+  webAppName: 'cptis-web'
   resourceGroupName: 'RG_CMS_CPTIS_DEV_eastus'
   dotnetSdkVersion: '8.0.x'
+  nodeVersion: '18.x' # Specify the Node.js version for Vite builds
 
 stages:
 - stage: Build
@@ -21,16 +22,30 @@ stages:
       inputs:
         version: $(dotnetSdkVersion)
 
+    - task: NodeTool@0
+      displayName: "Install Node.js"
+      inputs:
+        versionSpec: $(nodeVersion)
+
     - script: |
         export NODE_ENV=production
         export CI=true
+        echo "Environment variables set."
       displayName: 'Set environment variables'
 
     - script: |
-        echo "##[section]Starting build..."
+        echo "##[section]Starting .NET build process..."
         dotnet restore
         dotnet build --configuration Release --no-restore
       displayName: "Restore and Build"
+
+    - script: |
+        echo "##[section]Starting Vite build..."
+        cd cptis.ui
+        npm ci
+        npm run build
+        cd ..
+      displayName: "Build Frontend"
 
     - script: |
         echo "##[section]Publishing the app..."
@@ -58,7 +73,7 @@ stages:
           - task: AzureWebApp@1
             displayName: "Deploy to Azure Web App"
             inputs:
-              azureSubscription: 'DOHcom_Managed_NoSla_CPTIS'  
+              azureSubscription: 'DOHcom_Managed_NoSla_CPTIS'
               appType: 'webAppLinux'
               appName: $(webAppName)
               resourceGroupName: $(resourceGroupName)
