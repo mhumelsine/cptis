@@ -8,7 +8,8 @@ variables:
   webAppName: 'cptis-web'
   resourceGroupName: 'RG_CMS_CPTIS_DEV_eastus'
   dotnetSdkVersion: '8.0.x'
-  nodeVersion: '18.x' # Specify the Node.js version for Vite builds
+  nodeVersion: '18.x'
+  CI: true
 
 stages:
 - stage: Build
@@ -39,7 +40,7 @@ stages:
         echo "CI: $CI"
         echo "NODE_ENV: $NODE_ENV"
       displayName: "Print environment variables"
-      
+
     - script: |
         echo "##[section]Starting .NET build process..."
         dotnet restore
@@ -52,6 +53,8 @@ stages:
         npm ci
         npm run build
         cd ..
+      env:
+        CI: $(CI)
       displayName: "Build Frontend"
 
     - script: |
