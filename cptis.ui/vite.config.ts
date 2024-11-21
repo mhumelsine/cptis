@@ -38,7 +38,7 @@ if (!isCI) {
                      { stdio: 'inherit' }
                  ).status !== 0
              ) {
-                 throw new Error('Could not create certificate.');
+                 console.error('Could not create certificate.');
              }
          }
 
@@ -46,7 +46,7 @@ if (!isCI) {
              key: fs.readFileSync(keyFilePath),
              cert: fs.readFileSync(certFilePath),
          };
-         
+
         }catch(e){
             console.error(e);
         }
