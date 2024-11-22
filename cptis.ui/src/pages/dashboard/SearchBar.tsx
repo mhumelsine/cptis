@@ -3,9 +3,9 @@ import {
   ClipboardBulletListRtlRegular,
   SearchRegular,
 } from "@fluentui/react-icons";
-import { InputDropdown } from "../../common/controls/inputs/InputDropdown";
 import { CompoundButton } from "@fluentui/react-components";
 import CustomInput from "../../common/controls/inputs/CustomInput";
+import CustomDropdown from "../../common/controls/inputs/CustomDropdown";
 
 const SearchBar: React.FC = () => {
   const cardStyle =
@@ -33,16 +33,18 @@ const SearchBar: React.FC = () => {
           <div className="tw-grid xl:tw-grid-cols-2 tw-gap-2">
             <div className=" ">
               <CustomInput
-                id="searchText"
+                id="abuseNumbers"
                 label=""
                 placeholder="Abuse Numbers"
               />
             </div>
 
             <div>
-              <InputDropdown
+              <CustomDropdown
+                id="abuseReview"
                 placeholder="Select an Abuse Review"
                 options={[]}
+                label=""
               />
             </div>
           </div>

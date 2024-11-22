@@ -93,7 +93,7 @@ const Grid = <T,>(props: GridProps<T>) => {
             <Input
               placeholder="Filter"
               onChange={(event) => handleFilterChange(event, column.name)}
-              className="tw-ml-2"
+              className="tw-ml-2 tw-w-[90%]"
             />
           </div>
         );
