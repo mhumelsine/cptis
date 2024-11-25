@@ -17,7 +17,7 @@ export const fetchAuthConfig = async () => {
         msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
     }
     msalInstance.enableAccountStorageEvents();
-
+    
     msalInstance.addEventCallback((event: any) => {
         if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
             const account = event.payload.account;

@@ -1,43 +1,25 @@
-import { useQuery, useMutation, QueryFunctionContext, UseQueryOptions, UseMutationOptions } from "@tanstack/react-query";
-import { useMemo } from "react";
-import { ApiFunctions, ApiKey, HttpMethod } from "../types";
-import { API_ENDPOINTS } from "../endpoints";
+import { useMemo } from 'react';
+import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useMsalAuthentication, InteractionType } from '@azure/msal-react';
+import { API_ENDPOINTS } from './endpoints';
+import { ApiFunctions, HttpMethod, ApiKey } from './types';
 
-export function useApi(key: ApiKey): ApiFunctions {
-  const baseUrl = API_ENDPOINTS[key];
-  const buildUrl = (url: string, params?: string | number): string =>
-    `${baseUrl}${url}${params ? `/${params}` : ""}`;
+const useApi = (): ApiFunctions => {
+  const { result, error: msalError } = useMsalAuthentication(InteractionType.Popup, {
+    scopes: ["User.Read"],
+    redirectUri: '/redirect'
+  });
 
-  const fetchData = async <T>({ queryKey, signal }: QueryFunctionContext): Promise<T> => {
-    const [url] = queryKey;
-    const response = await fetch(url as string, { method: "GET", signal });
+  const fetchData = async <T>(url: string, method: HttpMethod, body?: any, contentType: string = "application/json"): Promise<T> => {
+    const headers = new Headers();
+    const bearer = `Bearer ${result?.accessToken}`;
+    headers.append("Authorization", bearer);
+    headers.append("Content-Type", contentType);
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json();
-  };
-
-  const postData = async <T>(url: string, body: any): Promise<T> => {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-
-    return response.json();
-  };
-
-  const updateData = async <T>(url: string, body: any, method: HttpMethod): Promise<T> => {
     const response = await fetch(url, {
       method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
     });
 
     if (!response.ok) {
@@ -45,24 +27,39 @@ export function useApi(key: ApiKey): ApiFunctions {
     }
 
     return response.json();
+  };
+
+  const buildUrl = (key: ApiKey, params?: string | number): string => {
+    const baseUrl = API_ENDPOINTS[key];
+    return params ? `${baseUrl}/${params}` : baseUrl;
   };
 
   return useMemo(() => ({
-    GET: <T>(url: string, params?: string | number, options?: UseQueryOptions<T, Error>) =>
-      useQuery<T, Error, T>(
-        [buildUrl(url, params)],
-        (context) => fetchData<T>(context),
-        options
-      ),
+    GET: <T>(key: ApiKey, params?: string | number, options?: UseQueryOptions<T, Error>) =>
+      useQuery<T, Error>({
+        queryKey: [buildUrl(key, params)], 
+        queryFn: async () => fetchData<T>(buildUrl(key, params), "GET"), 
+        ...options,
+      }),
+  
+    POST: <T>(key: ApiKey, body: any, options?: UseMutationOptions<T, Error>, contentType?: string) =>
+      useMutation<T, Error>({
+        mutationFn: () => fetchData<T>(buildUrl(key), "POST", body, contentType),
+        ...options
+  }),
+  
+    PUT: <T>(key: ApiKey, body: any, options?: UseMutationOptions<T, Error, any>, contentType?: string) =>
+      useMutation<T, Error, any>({
+        mutationFn: () => fetchData<T>(buildUrl(key), "PUT", body, contentType), 
+        ...options
+  }),
+  
+    PATCH: <T>(key: ApiKey, body: any, options?: UseMutationOptions<T, Error, any>, contentType?: string) =>
+      useMutation<T, Error, any>({
+        mutationFn: () => fetchData<T>(buildUrl(key), "PATCH", body, contentType),
+        ...options
+  }),
+  }), [result]);
+};
 
-    POST: <T>(url: string, body: any, options?: UseMutationOptions<T, Error, any>) =>
-      useMutation<T, Error, any>(() => postData<T>(buildUrl(url), body), options),
-
-    PUT: <T>(url: string, body: any, options?: UseMutationOptions<T, Error, any>) =>
-      useMutation<T, Error, any>(() => updateData<T>(buildUrl(url), body, "PUT"), options),
-
-    PATCH: <T>(url: string, body: any, options?: UseMutationOptions<T, Error, any>) =>
-      useMutation<T, Error, any>(() => updateData<T>(buildUrl(url), body, "PATCH"), options),
-  }), [baseUrl]);
-}
- 
+export default useApi;
