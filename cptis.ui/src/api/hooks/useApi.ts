@@ -1,18 +1,16 @@
-import { useMemo } from 'react';
-import { useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
-import { useMsalAuthentication, InteractionType } from '@azure/msal-react';
-import { API_ENDPOINTS } from './endpoints';
-import { ApiFunctions, HttpMethod, ApiKey } from './types';
+import { useMutation, UseMutationOptions, useQuery, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
+import { ApiEndpoints } from '../endpoints';
+import { ApiFunctions, HttpMethod, UpdateType } from '../types';
+import useAuthService from '../../common/hooks/useAuthService';
 
 const useApi = (): ApiFunctions => {
-  const { result, error: msalError } = useMsalAuthentication(InteractionType.Popup, {
-    scopes: ["User.Read"],
-    redirectUri: '/redirect'
-  });
+const {getAccessTokenAsync}= useAuthService();
+const queryClient = useQueryClient();
+const ONE_HOUR = 1000 * 60 * 60;
 
   const fetchData = async <T>(url: string, method: HttpMethod, body?: any, contentType: string = "application/json"): Promise<T> => {
     const headers = new Headers();
-    const bearer = `Bearer ${result?.accessToken}`;
+    const bearer = `Bearer ${await getAccessTokenAsync()}`;
     headers.append("Authorization", bearer);
     headers.append("Content-Type", contentType);
 
@@ -29,37 +27,39 @@ const useApi = (): ApiFunctions => {
     return response.json();
   };
 
-  const buildUrl = (key: ApiKey, params?: string | number): string => {
-    const baseUrl = API_ENDPOINTS[key];
-    return params ? `${baseUrl}/${params}` : baseUrl;
+  const buildUrl = (key: ApiEndpoints, params?: string | number): string => {
+    return params 
+    ? `${key}${params}`
+     : key;
   };
 
-  return useMemo(() => ({
-    GET: <T>(key: ApiKey, params?: string | number, options?: UseQueryOptions<T, Error>) =>
-      useQuery<T, Error>({
-        queryKey: [buildUrl(key, params)], 
-        queryFn: async () => fetchData<T>(buildUrl(key, params), "GET"), 
-        ...options,
-      }),
-  
-    POST: <T>(key: ApiKey, body: any, options?: UseMutationOptions<T, Error>, contentType?: string) =>
-      useMutation<T, Error>({
-        mutationFn: () => fetchData<T>(buildUrl(key), "POST", body, contentType),
-        ...options
-  }),
-  
-    PUT: <T>(key: ApiKey, body: any, options?: UseMutationOptions<T, Error, any>, contentType?: string) =>
+  const  GET = <T>(key: ApiEndpoints, params?: string | number, options?: UseQueryOptions<T, Error>) =>
+    useQuery<T, Error>({
+      queryKey: [buildUrl(key, params)], 
+      queryFn: () => fetchData<T>(buildUrl(key, params), "GET"), 
+      ...options, 
+      staleTime: options?.staleTime ?? ONE_HOUR
+    });
+
+    const POST= <T>(key: ApiEndpoints, options?: UseMutationOptions<T, Error>, contentType?: string) => 
       useMutation<T, Error, any>({
-        mutationFn: () => fetchData<T>(buildUrl(key), "PUT", body, contentType), 
+        mutationFn: (params: UpdateType<T>) => fetchData<T>(buildUrl(key, params.params), "POST", params.body, contentType), 
         ...options
-  }),
-  
-    PATCH: <T>(key: ApiKey, body: any, options?: UseMutationOptions<T, Error, any>, contentType?: string) =>
-      useMutation<T, Error, any>({
-        mutationFn: () => fetchData<T>(buildUrl(key), "PATCH", body, contentType),
-        ...options
-  }),
-  }), [result]);
+  }); 
+
+  const PUT= <T>(key: ApiEndpoints, options?: UseMutationOptions<T, Error, any>, contentType?: string) =>
+    useMutation<T, Error, any>({
+      mutationFn: (params: UpdateType<T>) => fetchData<T>(buildUrl(key, params.params), "PUT", params.body, contentType), 
+      ...options
+}); 
+
+  const  PATCH= <T>(key: ApiEndpoints, options?: UseMutationOptions<T, Error, any>, contentType?: string) =>
+    useMutation<T, Error, any>({
+      mutationFn: (params: UpdateType<T>) => fetchData<T>(buildUrl(key, params.params), "PATCH", params.body, contentType), 
+      ...options
+}); 
+
+  return {GET, POST, PUT, PATCH}; 
 };
 
 export default useApi;

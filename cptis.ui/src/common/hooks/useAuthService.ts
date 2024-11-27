@@ -1,4 +1,4 @@
-import { EventType } from "@azure/msal-browser";
+import { EventType, InteractionRequiredAuthError } from "@azure/msal-browser";
 import { fetchAuthConfig } from "../../api/AuthConfigApi";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -21,9 +21,9 @@ const useAuthService = () => {
         if (!auth?.msalInstance) return;
             const callbackId = auth.msalInstance.addEventCallback((event:any) => {
                 if (event?.eventType === EventType.LOGIN_SUCCESS) {
-                    const account = event?.payload?.account;
-                    console.log(event.payload);
+                    const account = event?.payload?.account;                   
                     if (account) {
+                        console.log("account:", account);
                         setUserInfo({
                             userName: account.name ?? "",
                             email: account.username,
@@ -53,7 +53,39 @@ const useAuthService = () => {
             .catch((error) => console.log(error));
     };
 
-    return { login, logout, userInfo };
+    
+const getAccessTokenAsync = async () => {
+    if (!auth?.msalInstance) return null;
+  const account = auth.msalInstance.getActiveAccount();
+  
+  if (!account) return null;
+
+  try {
+    const tokenInfo = await auth.msalInstance.acquireTokenSilent({
+      ...auth.jsonConfig.loginRequest,
+      account,
+    });
+    return tokenInfo.accessToken;
+  } catch (error) {
+      if (error instanceof InteractionRequiredAuthError) {
+          try {
+            const tokenInfo = await auth.msalInstance.acquireTokenPopup({
+              ...auth.jsonConfig.loginRequest,
+              account,
+            });
+            return tokenInfo.accessToken;
+          } catch (popupError) {
+            console.error("Popup login failed:", popupError);
+            throw popupError;
+          }
+        } else {
+          console.error("Silent token acquisition failed:", error);
+          throw error;
+        }
+      }
+}; 
+
+    return { login, logout, userInfo, getAccessTokenAsync };
 }
 
 export default useAuthService;

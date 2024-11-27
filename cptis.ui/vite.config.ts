@@ -58,6 +58,8 @@ const target = env.ASPNETCORE_HTTPS_PORT
     ? env.ASPNETCORE_URLS.split(';')[0]
     : 'https://localhost:7067';
 
+    console.log("target =====>",target);
+
 export default defineConfig({
     plugins: [plugin()],
     resolve: {
@@ -70,7 +72,7 @@ export default defineConfig({
             '/api': {
                 target,
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, '/api'),
+                rewrite: (path) => path.replace(/^\/api/, ''),
                 secure: false,
             },
             '/account': {
