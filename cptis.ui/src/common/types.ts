@@ -1,3 +1,5 @@
+import { PublicClientApplication } from "@azure/msal-browser";
+
 export enum cptisRoutes {
     root = "/",
     newReport = "new-report",
@@ -35,4 +37,16 @@ export interface AuthConfig {
     msalConfig: MsalConfig;
     loginRequest: LoginRequest;
     logoutRequest: LogoutRequest;
+};
+
+export interface UserInfo {
+    userName: string;
+    email: string;
+};
+
+export interface SessionInfo {
+    userInfo: UserInfo;
+    accessToken: string;
+    msalInstance: PublicClientApplication;
+    config: AuthConfig
 };
