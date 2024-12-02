@@ -1,82 +1,79 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./pages/layout/Layout";
 import { initializeIcons } from "@fluentui/react";
-import { Configuration, PublicClientApplication } from "@azure/msal-browser";
+import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchAuthConfig } from "./api/AuthConfigApi";
 import CptisHomePage from "./pages/CptisHomePage";
 import NotFound from "./pages/NotFound";
 import "./index.css";
 import AbuseReportPage from "./pages/abuse-report/AbuseReportPage";
 import Dashboard from "./pages/dashboard/Dashboard";
-import { cptisRoutes, AuthConfig } from "./common/types";
-import { FluentProvider, webLightTheme } from '@fluentui/react-components';
+import { cptisRoutes } from "./common/types";
+import { FluentProvider, webLightTheme } from "@fluentui/react-components";
+import useAuthentication from "./common/hooks/useAuthentication";
 
 initializeIcons();
 
 const router = createBrowserRouter([
-    {
-        path: cptisRoutes.root,
-        element: <Layout />,
-        children: [
-            {
-                index: true,
-                element: <CptisHomePage />
-            },
-            {
-                path: cptisRoutes.newReport,
-                element: <AbuseReportPage />
-            },
-            {
-                path: cptisRoutes.dashboard,
-                element: <Dashboard />
-            },
-            {
-                path: cptisRoutes.clientDemographic,
-                element: <> TODO: Create component for: {cptisRoutes.clientDemographic } </>
-            },
-            {
-                path: cptisRoutes.provider,
-                element: <> TODO: Create component for: {cptisRoutes.provider} </>
-            },
-            {
-                path: cptisRoutes.reports,
-                element: <> TODO: Create component for: {cptisRoutes.reports} </>
-            },
-            {
-                path: cptisRoutes.administration,
-                element: <> TODO: Create component for: {cptisRoutes.administration} </>
-            },
-            {
-                path: cptisRoutes.all,
-                element: <NotFound />
-            }
-        ]
-    }
+  {
+    path: cptisRoutes.root,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <CptisHomePage />,
+      },
+      {
+        path: cptisRoutes.newReport,
+        element: <AbuseReportPage />,
+      },
+      {
+        path: cptisRoutes.dashboard,
+        element: <Dashboard />,
+      },
+      {
+        path: cptisRoutes.clientDemographic,
+        element: (
+          <> TODO: Create component for: {cptisRoutes.clientDemographic} </>
+        ),
+      },
+      {
+        path: cptisRoutes.provider,
+        element: <> TODO: Create component for: {cptisRoutes.provider} </>,
+      },
+      {
+        path: cptisRoutes.reports,
+        element: <> TODO: Create component for: {cptisRoutes.reports} </>,
+      },
+      {
+        path: cptisRoutes.administration,
+        element: (
+          <> TODO: Create component for: {cptisRoutes.administration} </>
+        ),
+      },
+      {
+        path: cptisRoutes.all,
+        element: <NotFound />,
+      },
+    ],
+  },
 ]);
 
 const App = () => {
-    const { data: auth, isPending } = useQuery({
-        queryFn: fetchAuthConfig,
-        queryKey: ["authorization"],
-        staleTime: 1000 * 60 * 60 * 24 // cached for 1 day or refresh the page.
-    });
+  const { data, isFetching } = useAuthentication();
 
-    if (isPending) {
-        return <div>Loading...</div>
-    };
+  if (isFetching) {
+    return <div>Logging you in...</div>;
+  }
 
-    const authData = auth ?? {
-        msalInstance: new PublicClientApplication({} as Configuration),
-        jsonConfig: {} as AuthConfig
-    };
-
-    return <FluentProvider theme={webLightTheme}>
-        <MsalProvider instance={authData.msalInstance}>
+  return (
+    <FluentProvider theme={webLightTheme}>
+      <MsalProvider instance={data?.msalInstance as PublicClientApplication}>
+        {" "}
         <RouterProvider router={router} />
-        </MsalProvider>
+      </MsalProvider>
     </FluentProvider>
+  );
 };
 
 export default App;

@@ -13,7 +13,7 @@ const Dashboard: FC = () => {
 
   //const apiPut = api.PUT<string>(ApiEndpoints.dashboard);
 
-  //const apiPost = api.POST<string>(ApiEndpoints.dashboard);
+  const apiPost = api.POST<string>(ApiEndpoints.dashboard);
 
   const queryClient = useQueryClient();
   const queryCache = queryClient.getQueryCache();
@@ -25,7 +25,7 @@ const Dashboard: FC = () => {
     <>
       <div
         onClick={() => {
-          // apiPost.mutate({ body: { name: "test" }, params: "/test" });
+          apiPost.mutate({ body: { name: "test" }, params: "/test" });
         }}
       >
         {" "}

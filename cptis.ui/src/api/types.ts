@@ -6,11 +6,13 @@ export interface UseApiOptions {
   baseUrl: string;
 }
 
+export type QueryOptions<T> = Omit<UseQueryOptions<T, Error>, 'queryKey' | 'queryFn'>;
+
 export interface ApiFunctions {
   GET<T>(
     url: string,
     params?: string | number,
-    options?: UseQueryOptions<T, Error>
+    options?: QueryOptions<T>
   ): ReturnType<typeof useQuery<T, Error>>;
   POST<T>(
     url: string,   
