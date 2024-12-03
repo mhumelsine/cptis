@@ -8,15 +8,6 @@ import useAuthentication from "../../common/hooks/useAuthentication";
 const TopMenu: FC = () => {
   const { data } = useAuthentication();
 
-  const personaStyles = {
-    name: {
-      color: "white", // Set the name text color to white
-    },
-    secondaryText: {
-      color: "lightgray", // Set the secondary text color to light gray
-    },
-  };
-
   return (
     <header className={styles.header} role="banner">
       <div className={styles.headerContainer}>
@@ -48,7 +39,6 @@ const TopMenu: FC = () => {
               </Field>
             </div>
             <Persona
-              className={styles.persona}
               textPosition="before"
               primaryText={
                 <span className="tw-text-white tw-font-bold">
