@@ -41,19 +41,3 @@
     color: white;
     box-shadow: 2px 2px 2px gray;
 }
-
-.personaText {
-    color: white !important;
-  }
-  
-  .personaSecText {
-    color: lightgray !important;
-  }
-
-  .persona .fui-Persona__primaryText {
-    color: white !important;
-  }
-  
-  .persona .fui-Persona__secondaryText {
-    color: lightgray !important;
-  }
