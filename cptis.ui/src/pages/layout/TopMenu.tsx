@@ -1,11 +1,22 @@
 import { FC } from "react";
 import styles from "./Layout.module.css";
-import { Persona } from "@fluentui/react";
-import { Field, SearchBox } from "@fluentui/react-components";
+import { Field, SearchBox, Persona } from "@fluentui/react-components";
 import { PersonRegular } from "@fluentui/react-icons";
 import { AuthenticatedTemplate } from "@azure/msal-react";
+import useAuthentication from "../../common/hooks/useAuthentication";
 
 const TopMenu: FC = () => {
+  const { data } = useAuthentication();
+
+  const personaStyles = {
+    name: {
+      color: "white", // Set the name text color to white
+    },
+    secondaryText: {
+      color: "lightgray", // Set the secondary text color to light gray
+    },
+  };
+
   return (
     <header className={styles.header} role="banner">
       <div className={styles.headerContainer}>
@@ -24,7 +35,7 @@ const TopMenu: FC = () => {
         <AuthenticatedTemplate>
           <div className="tw-flex tw-flex-inline">
             <div className="">
-              <Field className="tw-mr-4 tw-mt-2">
+              <Field className="tw-mr-8">
                 <SearchBox
                   className={"tw-text-black tw-mx-1"}
                   contentBefore={<PersonRegular />}
@@ -36,7 +47,18 @@ const TopMenu: FC = () => {
                 />
               </Field>
             </div>
-            <Persona />
+            <Persona
+              className={styles.persona}
+              textPosition="before"
+              primaryText={
+                <span className="tw-text-white tw-font-bold">
+                  {data?.userInfo.userName}
+                </span>
+              }
+              secondaryText={
+                <span className="tw-text-gray-300">{data?.userInfo.email}</span>
+              }
+            />
           </div>
         </AuthenticatedTemplate>
       </div>
