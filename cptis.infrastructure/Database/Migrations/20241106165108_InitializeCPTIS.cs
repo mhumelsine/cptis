@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace cptis.infrastructure.Migrations
+namespace cptis.infrastructure.Database.Migrations
 {
     /// <inheritdoc />
     public partial class InitializeCPTIS : Migration

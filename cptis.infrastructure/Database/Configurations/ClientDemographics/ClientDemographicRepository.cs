@@ -1,6 +1,6 @@
 ﻿
 
-namespace cptis.infrastructure.ClientDemographics
+namespace cptis.infrastructure.Database.Configurations
 {
     internal class ClientDemographicRepository
     {

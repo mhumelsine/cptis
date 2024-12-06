@@ -9,16 +9,19 @@ namespace cptis.api.Controllers
     public class DashboardController : Controller
     {
         private readonly IConfiguration configuration;
+        private readonly ILogger logger;
 
-        public DashboardController(IConfiguration configuration)
+        public DashboardController(IConfiguration configuration, ILogger logger)
         {
             this.configuration = configuration;
+            this.logger = logger;
         }
 
         [Route("test")]
         [HttpGet]
         public IActionResult GetTest()
         {
+            logger.Info("GetTest called");
             return Ok(new { test = "test data" });
         }
 

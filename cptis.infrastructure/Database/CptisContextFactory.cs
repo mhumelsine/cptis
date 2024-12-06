@@ -8,9 +8,10 @@ namespace cptis.infrastructure.Database
     {
         public CptisContext CreateDbContext(string[] args)
         {
+            var basePath = Directory.GetCurrentDirectory();
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .SetBasePath(basePath)
+                .AddJsonFile(Path.Combine(basePath, "..", "cptis.api", "appsettings.json"))
                 .Build();
 
             var optionsBuilder = new DbContextOptionsBuilder<CptisContext>();
