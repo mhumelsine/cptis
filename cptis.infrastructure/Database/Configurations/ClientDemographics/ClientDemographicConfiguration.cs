@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using cptis.domain.ClientDemographics;
 
-namespace cptis.infrastructure.ClientDemographics
+namespace cptis.infrastructure.Database.Configurations
 {
     public class ClientDemographicConfiguration : IEntityTypeConfiguration<ClientDemographic>
     {

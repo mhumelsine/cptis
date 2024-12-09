@@ -1,4 +1,5 @@
 ﻿using cptis.domain.ClientDemographics;
+using cptis.domain.Logger;
 using Microsoft.EntityFrameworkCore;
 
 namespace cptis.infrastructure.Database
@@ -6,6 +7,7 @@ namespace cptis.infrastructure.Database
     public class CptisContext: DbContext
     { 
         public DbSet<ClientDemographic> ClientDemographics { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         public CptisContext(DbContextOptions options) : base(options)
         {

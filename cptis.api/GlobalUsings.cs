@@ -1,0 +1,1 @@
+﻿global using ILogger = cptis.infrastructure.Services.ILogger;

@@ -1,10 +1,14 @@
+using NLog.Web;
 using cptis.api.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();  
+builder.Logging.ClearProviders();
+builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Warning);
+builder.Host.UseNLog();
+builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 builder.Services.AddResponseCaching();
 
@@ -69,10 +73,10 @@ app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 
 app.UseRouting();
- 
+
 app.UseAuthentication();
 app.UseAuthorization();
- 
+
 if (app.Environment.IsDevelopment())
 {
     IdentityModelEventSource.ShowPII = true;
@@ -81,13 +85,13 @@ if (app.Environment.IsDevelopment())
     {
         c.OAuthScopes($"api://{builder.Configuration["AzureAd:ClientId"]}/User.Read");
         c.OAuthClientId(builder.Configuration["AzureAd:ClientId"]);
-        c.OAuthUsePkce(); 
+        c.OAuthUsePkce();
     });
 }
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
- app.MapControllers();
+app.MapControllers();
 
 app.Run();
