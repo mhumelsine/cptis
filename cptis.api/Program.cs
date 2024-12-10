@@ -2,6 +2,9 @@ using NLog.Web;
 using cptis.api.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
+using cptis.api.Filters;
+using cptis.application.Utils;
+using cptis.application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +54,13 @@ builder.Services.AddSwaggerGen(c =>
             new[] { "api://d616a281-9ab1-45c3-bc55-d771ba43a117/User.Read" }
         }
     });
+});
+builder.Services.AddScoped<UserSessionContext>();
+builder.Services.AddScoped<UserSessionFilter>();
+builder.Services.AddScoped<IUserSessionProvider>(p => new UserSessionProvider(p.GetRequiredService<UserSessionContext>()));
+builder.Services.AddControllers(options =>
+{
+    options.Filters.AddService<UserSessionFilter>();
 });
 
 builder.Services
