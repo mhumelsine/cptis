@@ -1,3 +1,5 @@
+using cptis.application.Interfaces;
+
 namespace cptis.infrastructure.Services
 {
     public interface ILogger
@@ -13,7 +15,13 @@ namespace cptis.infrastructure.Services
     public class LoggerManager : ILogger
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private readonly IUserSessionProvider userSessionProvider;
 
+        public LoggerManager(IUserSessionProvider userSessionProvider)
+        {
+            this.userSessionProvider = userSessionProvider;
+
+        }
         protected virtual NLog.LogEventInfo GetLogEvent(NLog.LogLevel level, Exception ex = null, string message = null)
         {
             var info = new NLog.LogEventInfo
@@ -44,7 +52,7 @@ namespace cptis.infrastructure.Services
                 innerExceptionMessage = this.GetInnerException(ex);
             }
 
-            info.Properties.Add("User", "SYSTEM"); // TODO: get user from context
+            info.Properties.Add("User", userSessionProvider.GetUsername());
             info.Properties.Add("Process", "CPTIS");
             info.Properties.Add("Source", source);
             info.Properties.Add("ClassName", className);
