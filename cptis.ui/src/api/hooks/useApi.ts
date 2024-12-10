@@ -12,16 +12,21 @@ const ONE_HOUR = 1000 * 60 * 60;
     const headers = new Headers();
     const bearer = `Bearer ${await  data?.accessToken}`;
     headers.append("Authorization", bearer);
-    headers.append("Content-Type", contentType);
+    if (!(body instanceof FormData)) {
+      headers.append("Content-Type", contentType);
+    }
 
     const response = await fetch(url, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : undefined,
+      body: body 
+          ? (body instanceof FormData ? body : JSON.stringify(body)) 
+          : undefined,
     });
 
     if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
+      const errorData = await response.json();
+      throw new Error(JSON.stringify(errorData));
     }
 
     return response.json();

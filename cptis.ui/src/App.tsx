@@ -11,6 +11,10 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import { cptisRoutes } from "./common/types";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import useAuthentication from "./common/hooks/useAuthentication";
+import FluentuiFormStateless from "./pages/form-test/fluentui-form";
+import MantineFormStateless from "./pages/form-test/mantine-fom";
+import { createTheme, MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
 
 initializeIcons();
 
@@ -49,6 +53,18 @@ const router = createBrowserRouter([
         path: cptisRoutes.administration,
         element: (
           <> TODO: Create component for: {cptisRoutes.administration} </>
+        ),
+      },
+      {
+        path: "fluentui-form",
+        element: <FluentuiFormStateless />,
+      },
+      {
+        path: "mantine-form",
+        element: (
+          <MantineProvider theme={createTheme({})}>
+            <MantineFormStateless />
+          </MantineProvider>
         ),
       },
       {
