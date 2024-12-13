@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  ClipboardBulletListRtlRegular,
-  SearchRegular,
-} from "@fluentui/react-icons";
-import { CompoundButton } from "@fluentui/react-components";
-import CustomInput from "../../common/controls/inputs/CustomInput";
-import CustomDropdown from "../../common/controls/inputs/CustomDropdown";
+import { ActionIcon, Select, TextInput } from "@mantine/core";
+import { LuFolderSearch, LuSearch } from "react-icons/lu";
 
 const SearchBar: React.FC = () => {
   const cardStyle =
@@ -21,8 +16,8 @@ const SearchBar: React.FC = () => {
       <div
         className={`${cardStyle} tw-grid md:tw-grid-cols-[10%_80%_10%] sm:tw-grid-cols-1 tw-flex`}
       >
-        <div className="tw-flex tw-items-center tw-text-7xl tw-pt-2 tw-mr-4">
-          <ClipboardBulletListRtlRegular />
+        <div className="tw-flex tw-items-center tw-text-6xl tw-pt-2 ">
+          <LuFolderSearch />
         </div>
 
         <div className="tw-flex-1">
@@ -32,7 +27,7 @@ const SearchBar: React.FC = () => {
 
           <div className="tw-grid xl:tw-grid-cols-2 tw-gap-2">
             <div className=" ">
-              <CustomInput
+              <TextInput
                 id="abuseNumbers"
                 label=""
                 placeholder="Abuse Numbers"
@@ -40,25 +35,19 @@ const SearchBar: React.FC = () => {
             </div>
 
             <div>
-              <CustomDropdown
+              <Select
                 id="abuseReview"
                 placeholder="Select an Abuse Review"
-                options={[]}
                 label=""
               />
             </div>
           </div>
         </div>
 
-        <div className="tw-flex tw-items-center tw-justify-end">
-          <CompoundButton
-            type="submit"
-            appearance="transparent"
-            icon={
-              <SearchRegular className="tw-p-1 tw-rounded-full tw-border tw-border-2 tw-shadow-lg" />
-            }
-            className="tw-w-full md:tw-w-auto"
-          />
+        <div className="tw-flex tw-items-center tw-justify-end tw-pt-6">
+          <ActionIcon size={42} variant="default" aria-label="search abuse">
+            <LuSearch />
+          </ActionIcon>
         </div>
       </div>
     </form>

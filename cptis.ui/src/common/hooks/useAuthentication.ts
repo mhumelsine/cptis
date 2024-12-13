@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const useAuthentication = () => {
      const queryClient = useQueryClient();
-     const {data, isFetching} = useQuery<SessionInfo>({
+     const {data, isFetching, refetch} = useQuery<SessionInfo>({
          queryKey: ["SESSION"], 
          queryFn: async () => {
 
@@ -31,6 +31,7 @@ const useAuthentication = () => {
                 if (event.eventType === EventType.LOGIN_SUCCESS && event.payload.account) {
                     const account = event.payload.account;
                     msalInstance.setActiveAccount(account);
+                    refetch();
                 }
             });
               const token = await getAccessTokenAsync(msalInstance, data);
@@ -85,6 +86,7 @@ const useAuthentication = () => {
         data.msalInstance?.loginRedirect(data?.config.loginRequest)
        .then(async () => {
         await getAccessTokenAsync(data.msalInstance, data?.config);
+        refetch();
       })
       .catch((error) => console.log("LOGIN ERROR:", error));
     };
@@ -102,6 +104,7 @@ const useAuthentication = () => {
             if (response) {
               const token = await getAccessTokenAsync(data.msalInstance, data.config);
               data.accessToken = token ?? "";
+              refetch();
             }
           })
           .catch((error) => console.log("HANDLE REDIRECT PROMISE ERROR:", error));
