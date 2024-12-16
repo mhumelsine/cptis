@@ -1,12 +1,17 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import styles from "./Layout.module.css";
-import { Field, SearchBox, Persona } from "@fluentui/react-components";
-import { PersonRegular } from "@fluentui/react-icons";
 import { AuthenticatedTemplate } from "@azure/msal-react";
 import useAuthentication from "../../common/hooks/useAuthentication";
+import Persona from "../../common/controls/Persona";
+import { Input } from "@mantine/core";
+import { LuSearch } from "react-icons/lu";
 
 const TopMenu: FC = () => {
   const { data } = useAuthentication();
+
+  React.useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   return (
     <header className={styles.header} role="banner">
@@ -24,30 +29,17 @@ const TopMenu: FC = () => {
           </span>
         </h3>
         <AuthenticatedTemplate>
-          <div className="tw-flex tw-flex-inline">
+          <div className="tw-flex tw-flex-inline tw-gap-4">
             <div className="">
-              <Field className="tw-mr-8">
-                <SearchBox
-                  className={"tw-text-black tw-mx-1"}
-                  contentBefore={<PersonRegular />}
-                  placeholder="        search client"
-                  style={{
-                    borderRadius: "100px",
-                    borderBottom: "0",
-                  }}
-                />
-              </Field>
+              <Input
+                placeholder="Search client"
+                radius="xl"
+                leftSection={<LuSearch />}
+              />
             </div>
             <Persona
-              textPosition="before"
-              primaryText={
-                <span className="tw-text-white tw-font-bold">
-                  {data?.userInfo.userName}
-                </span>
-              }
-              secondaryText={
-                <span className="tw-text-gray-300">{data?.userInfo.email}</span>
-              }
+              primaryText={data?.userInfo.userName ?? ""}
+              secondaryText={data?.userInfo.email ?? ""}
             />
           </div>
         </AuthenticatedTemplate>
