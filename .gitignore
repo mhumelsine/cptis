@@ -73,3 +73,5 @@ dist
 
 # data protection keys
 keys
+
+dbml-error.log

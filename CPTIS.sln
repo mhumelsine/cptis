@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cptis.Api", "src\Cptis.Api\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cptis.Core.Tests", "tests\Cptis.Core.Tests\Cptis.Core.Tests.csproj", "{1ADA8356-296E-4640-9860-AA02180C8DF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cptis.Application", "src\Cptis.Application\Cptis.Application.csproj", "{71B8AA18-CA95-4D46-B744-D05EF1FF3BBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{1ADA8356-296E-4640-9860-AA02180C8DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ADA8356-296E-4640-9860-AA02180C8DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1ADA8356-296E-4640-9860-AA02180C8DF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B8AA18-CA95-4D46-B744-D05EF1FF3BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B8AA18-CA95-4D46-B744-D05EF1FF3BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B8AA18-CA95-4D46-B744-D05EF1FF3BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B8AA18-CA95-4D46-B744-D05EF1FF3BBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
