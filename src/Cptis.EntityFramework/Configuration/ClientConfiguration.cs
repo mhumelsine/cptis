@@ -32,7 +32,7 @@ public class ClientConfiguration : IEntityTypeConfiguration<Client>
         
         builder.Address(x => x.Address);
 
-        builder.HasMany(x => x.PreviousAddresses)
+        builder.HasMany(x => x.AddressHistory)
             .WithOne();
     }
 }

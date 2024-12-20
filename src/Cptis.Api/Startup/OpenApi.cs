@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
-namespace Cptis.Api;
+namespace Cptis.Api.Startup;
 
 /// <summary>
 /// Registers OpenAPI

@@ -9,8 +9,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Cptis.Api.Endpoints.Client.V1;
 
+/// <summary>
+/// Holds all V1 client endpoints
+/// </summary>
 public static class Endpoints
 {
+    /// <summary>
+    /// Adds V1 endpoints
+    /// </summary>
+    /// <param name="group">Route group with prefix client</param>
+    /// <returns>Builder</returns>
     public static RouteGroupBuilder V1(this RouteGroupBuilder group)
     {
         group.MapGet("/{clientKey:int}", GetAsync)
@@ -22,12 +30,12 @@ public static class Endpoints
 
                 return opt;
             })
-            .WithName(nameof(GetAsync))
-            .Produces<ClientResponse>()
-            .ProducesValidationProblem();
+            .WithName(nameof(GetAsync)) // name the route so it can be referenced in the 201-Created response
+            .Produces<ClientResponse>() // describe the return type of the API
+            .ProducesValidationProblem(); // describe the return type of the API
         
         group.MapPost("/", PostAsync)
-            .Validate<CreateClientRequest>()
+            .Validate<CreateClientRequest>() // Add the validation middleware to the endpoint to find the validator for the model in the request body
             .WithOpenApi(opt =>
             {
                 opt.OperationId = "v1-post-client";
@@ -36,22 +44,36 @@ public static class Endpoints
                 return opt;
             })
             .WithName(nameof(PostAsync))
-            .Produces<ClientResponse>()
-            .ProducesValidationProblem();
+            .Produces<ClientResponse>() // describe the return type of the API
+            .ProducesValidationProblem(); // describe the return type of the API
 
         return group;
     }
     
+    /// <summary>
+    /// Handles get using the unique client key
+    /// </summary>
+    /// <param name="clientKey">The unique client identifier</param>
+    /// <param name="db">Readonly DbContext</param>
+    /// <param name="cancel">If the user aborts the request</param>
+    /// <returns>Http.Result</returns>
     public static async Task<IResult> GetAsync([FromRoute] int clientKey, [FromServices] CptisReadContext db, CancellationToken cancel)
     {
-        var client = await db.Clients.FirstOrDefaultAsync(x => x.ClientKey == clientKey, cancel);
+        var client = await db.Clients
+            .FirstOrDefaultAsync(x => x.ClientKey == clientKey, cancel);
 
         return client is null 
             ? Results.NotFound() 
             : Results.Ok(ModelFactory.Create(client));
     }
-
-
+    
+    /// <summary>
+    /// Handles adding new clients
+    /// </summary>
+    /// <param name="body">The CreateClient command</param>
+    /// <param name="service">The Application Service that will handle the command</param>
+    /// <param name="cancel">If the user aborts the request</param>
+    /// <returns>Http.Result</returns>
     public static async Task<IResult> PostAsync(
         [FromBody] CreateClientRequest body,
         [FromServices] ClientService service,

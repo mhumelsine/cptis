@@ -2,14 +2,29 @@ using FluentValidation;
 
 namespace Cptis.Api.Models;
 
+/// <summary>
+/// Represents an US address
+/// </summary>
 public record Address
 {
+    /// <summary>
+    /// Street line 1
+    /// </summary>
     public string? Street { get; init; }
 
+    /// <summary>
+    /// City name
+    /// </summary>
     public string? City { get; init; }
 
+    /// <summary>
+    /// 2 character state code
+    /// </summary>
     public string? State { get; init; }
 
+    /// <summary>
+    /// The 5 or 9-digit zip code
+    /// </summary>
     public string? Zip { get; init; }
 }
 

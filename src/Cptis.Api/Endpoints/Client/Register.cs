@@ -27,6 +27,7 @@ public static class Register
     /// <returns>The web application this extension was called on</returns>
     public static WebApplication UseClientEndpoints(this WebApplication app)
     {
+        // maps the version 1 client endpoints
         app.MapGroup("v1/clients").V1();
 
         return app;

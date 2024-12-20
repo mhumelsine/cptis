@@ -1,10 +1,18 @@
 using Cptis.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cptis.Api;
+namespace Cptis.Api.Startup;
 
+/// <summary>
+/// Handles database registration
+/// </summary>
 public static class Database
 {
+    /// <summary>
+    /// Adds the database and db contexts to the service collection
+    /// </summary>
+    /// <param name="builder">The web application builder instance</param>
+    /// <returns>The web application builder instance</returns>
     public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
     {
         Action<DbContextOptionsBuilder> optionsAction = options =>
@@ -27,6 +35,11 @@ public static class Database
         return builder;
     }
 
+    /// <summary>
+    /// Configures SQL Server as the storage for CptisDbContexts
+    /// </summary>
+    /// <param name="options">Configuration delegate</param>
+    /// <param name="builder">The web application builder instance</param>
     private static void UseSqlServer(this DbContextOptionsBuilder options, WebApplicationBuilder builder)
     {
         options.UseSqlServer(builder.Configuration.GetConnectionString(nameof(CptisWriteContext)), sql =>
@@ -36,6 +49,11 @@ public static class Database
         });
     }
 
+    /// <summary>
+    /// Configures SQLite as the storage for CptisDbContexts and puts database file in OS's user app data folder
+    /// </summary>
+    /// <param name="options">Configuration delegate</param>
+    /// <param name="builder">The web application builder instance</param>
     private static void UseSqlite(this DbContextOptionsBuilder options, WebApplicationBuilder builder)
     {
         var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
