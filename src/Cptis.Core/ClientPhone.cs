@@ -1,5 +1,8 @@
 namespace Cptis.Core;
 
+/// <summary>
+/// Represents a client's phone information
+/// </summary>
 public class ClientPhone
 {
     /// <summary>
@@ -20,7 +23,7 @@ public class ClientPhone
     /// <summary>
     /// The phone number
     /// </summary>
-    public PhoneNumber Phone { get; set; } = new();
+    public PhoneNumber Phone { get; set; } = PhoneNumber.None;
 
     /// <summary>
     /// A description of the phone number like "Dad's work" or "home"
