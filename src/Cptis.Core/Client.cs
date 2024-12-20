@@ -46,6 +46,11 @@ public class Client
     public ICollection<ClientAddress> AddressHistory { get; set; } = [];
 
     /// <summary>
+    /// The phone numbers associated with a client
+    /// </summary>
+    public ICollection<ClientPhone> PhoneHistory { get; set; }
+
+    /// <summary>
     /// Creates a new client
     /// </summary>
     /// <param name="id">Client's ID</param>

@@ -12,7 +12,7 @@ public class CptisWriteContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(Configuration.ClientConfiguration).Assembly);
-
+        
         base.OnModelCreating(modelBuilder);
     }
     

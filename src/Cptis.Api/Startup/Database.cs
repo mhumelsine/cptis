@@ -22,9 +22,9 @@ public static class Database
                 options.EnableSensitiveDataLogging();
             }
 
-            //options.UseSqlServer(builder);
+            options.UseSqlServer(builder);
 
-            options.UseSqlite(builder);
+            //options.UseSqlite(builder);
 
             options.UseSnakeCaseNamingConvention();
         };

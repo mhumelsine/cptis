@@ -75,4 +75,24 @@ public static class Extensions
             });
         });
     }
+
+    public static void Phone<T, TPhone>(this EntityTypeBuilder<T> builder, Expression<Func<T, TPhone?>> selector)
+        where T : class
+        where TPhone : PhoneNumber
+    {
+        builder.ComplexProperty(selector, options =>
+        {
+            options.Property(x => x.AreaCode)
+                .HasMaxLength(3)
+                .HasColumnType("char");
+            
+            options.Property(x => x.Number)
+                .HasMaxLength(7)
+                .HasColumnType("char");
+            
+            options.Property(x => x.Extension)
+                .HasMaxLength(30);
+        });
+    }
+
 }
