@@ -67,18 +67,21 @@ public record State
     /// <summary>
     /// Represents a missing or invalid State
     /// </summary>
-    public static State None = new(string.Empty, string.Empty);
+    public static State None = new(string.Empty);
 
     /// <summary>
     /// Create a representation of a US State
     /// </summary>
     /// <param name="code">The 2 character state code</param>
-    /// <param name="name">The full name of the state</param>
-    public State(string code, string name)
+    public State(string code)
     {
         if (!Lookup.TryGetValue(code, out var nameLookup)) throw new ArgumentOutOfRangeException($"Invalid state code '{code}'");
         Code = code;
         Name = nameLookup;
+    }
+
+    private State()
+    {
     }
 
     /// <summary>
@@ -96,12 +99,12 @@ public record State
     /// </summary>
     /// <param name="code">The two character state code</param>
     /// <returns>Instance of state when valid state code; State.None otherwise</returns>
-    public static State FromCode(string? code)
+    public static State FromString(string? code)
     {
         if (string.IsNullOrWhiteSpace(code)) return None;
 
         if (!Lookup.TryGetValue(code, out var name)) return None;
 
-        return new State(code, name);
+        return new State(code);
     }
 }

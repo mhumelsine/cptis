@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace Cptis.Core;
 
 /// <summary>
@@ -10,10 +12,14 @@ namespace Cptis.Core;
 /// <param name="County">The county</param>
 /// <param name="Country">The country</param>
 public record Address(
-    string? Street = null, 
-    string? City = null, 
-    string? State = null, 
-    string? Zip = null, 
-    string? County = null, 
+    string? Street,
+    string? City,
+    State State,
+    Zip Zip,
+    string? County = null,
     string? Country = null
-);
+)
+{
+    public static readonly Address None = new("", "", State.None, Zip.None);
+    public Address() : this(null, null, State.None, Zip.None, null, null) { }
+}

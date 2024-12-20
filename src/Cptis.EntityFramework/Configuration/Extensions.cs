@@ -54,12 +54,25 @@ public static class Extensions
     {
         builder.ComplexProperty(selector, options =>
         {
-            options.Property(x => x.State)
-                .HasMaxLength(2)
-                .HasColumnType("char");
-            
-            options.Property(x => x.Zip)
-                .HasMaxLength(9);
+            options.ComplexProperty(x => x.State, stateOptions =>
+            {
+                stateOptions.Property(x => x.Code)
+                    .HasMaxLength(2)
+                    .HasColumnType("char");
+                
+                stateOptions.Ignore(x => x.Name);
+            });
+
+            options.ComplexProperty(x => x.Zip, zipOptions =>
+            {
+                zipOptions.Property(x => x.Code)
+                    .HasMaxLength(5);
+                
+                zipOptions.Property(x => x.Plus4)
+                    .HasMaxLength(4);
+                
+                zipOptions.Ignore(x => x.Value);
+            });
         });
     }
 }

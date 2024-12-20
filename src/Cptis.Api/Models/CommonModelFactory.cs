@@ -1,3 +1,5 @@
+using Cptis.Core;
+
 namespace Cptis.Api.Models;
 
 /// <summary>
@@ -13,8 +15,8 @@ public static class CommonModelFactory
     public static Core.Address Create(Address address) => new Core.Address(
         Street: address.Street,
         City: address.City,
-        State: address.State,
-        Zip: address.Zip
+        State: State.FromString(address.State),
+        Zip: Zip.FromString(address.Zip)
     );
 
     /// <summary>
@@ -26,7 +28,7 @@ public static class CommonModelFactory
     {
         Street = address.Street,
         City = address.City,
-        State = address.State,
-        Zip = address.Zip
+        State = address.State?.Code,
+        Zip = address.Zip?.Value
     };
 }
