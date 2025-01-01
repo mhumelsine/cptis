@@ -8,7 +8,7 @@ public class ClientAddressConfiguration : IEntityTypeConfiguration<ClientAddress
 {
     public void Configure(EntityTypeBuilder<ClientAddress> builder)
     {
-        builder.HasKey(x => x.ClientAddressKey);
+        builder.HasKey(x => x.ClientAddressId);
         builder.Audit(x => x.Audit);
         builder.Address(x => x.Address);
     }

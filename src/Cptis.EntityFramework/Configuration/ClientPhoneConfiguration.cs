@@ -8,7 +8,7 @@ public class ClientPhoneConfiguration : IEntityTypeConfiguration<ClientPhone>
 {
     public void Configure(EntityTypeBuilder<ClientPhone> builder)
     {
-        builder.HasKey(x => x.ClientPhoneKey);
+        builder.HasKey(x => x.ClientPhoneId);
         builder.Audit(x => x.Audit);
         builder.Phone(x => x.Phone);
     }

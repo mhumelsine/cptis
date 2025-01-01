@@ -8,7 +8,7 @@ public class ClientAddress()
     /// <summary>
     /// Unique identifier of the address entry
     /// </summary>
-    public int ClientAddressKey { get; set; }
+    public int ClientAddressId { get; set; }
     
     /// <summary>
     /// The first date and time the address is active

@@ -8,7 +8,7 @@ public class ClientPhone
     /// <summary>
     /// Unique identifier for the client phone entry
     /// </summary>
-    public int ClientPhoneKey { get; set; }
+    public int ClientPhoneId { get; set; }
 
     /// <summary>
     /// The first date and time the address is active
