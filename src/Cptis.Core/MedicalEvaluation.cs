@@ -18,6 +18,12 @@ namespace Cptis.Core
         /// </summary>
         public string AbuseReportNumber { get; set; }
 
+
+        /// <summary>
+        /// FK for corresponding Assessment
+        /// </summary>
+        public int AssessmentId { get; set; }
+
         /// <summary>
         /// Audit details about when the client was created and modified
         /// </summary>
@@ -27,6 +33,11 @@ namespace Cptis.Core
         /// Identifier of the client associated with the medical evaluation.
         /// </summary>
         public ClientId ClientId { get; set; }
+
+        /// <summary>
+        /// FK for the corresponding Client Demographic Record
+        /// </summary>
+        public int ClientDemographicId { get; set; }
 
         /// <summary>
         /// Assessment sequence number for the medical evaluation.
@@ -211,6 +222,17 @@ namespace Cptis.Core
         /// <summary>
         /// Related MedicalEvaluationMedications.
         /// </summary>
-        public ICollection<MedicalEvaluationMedications> MedicalEvaluationMedications { get; set; }
+        public ICollection<MedicalEvaluationMedication> MedicalEvaluationMedications { get; set; }
+
+        /// <summary>
+        /// Related MedicalEvaluationItems.
+        /// </summary>
+        public ICollection<MedicalEvaluationItem> MedicalEvaluationItems { get; set; }
+
+        /// <summary>
+        /// Related MedicalEvaluationImpressionRecommendations.
+        /// </summary>
+        public ICollection<MedicalEvaluationImpressionRecommendation> MedicalEvaluationImpressionRecommendations { get; set; }
+
     }
 }

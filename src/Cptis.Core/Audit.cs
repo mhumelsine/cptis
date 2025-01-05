@@ -8,8 +8,10 @@ public class Audit
     /// <summary>
     /// The UserId of the user that created the entity
     /// </summary>
-    public UserId CreatedBy { get; private set; }
+    public CptisUser CreatedBy { get; private set; }
     
+    public string Page {  get; private set; }
+
     /// <summary>
     /// The date and time the entity was created
     /// </summary>
@@ -19,7 +21,7 @@ public class Audit
     /// The UserId of the last user to modify the entity.
     /// If no changes have been made, this will match <paramref name="CreatedBy" />.
     /// </summary>
-    public UserId ModifiedBy { get; private set; }
+    public CptisUser ModifiedBy { get; private set; }
     
     /// <summary>
     /// The date and time the entity was last modified.
@@ -32,7 +34,7 @@ public class Audit
     /// </summary>
     public Audit()
     {
-        ModifiedBy = CreatedBy = UserId.None;
+        //ModifiedBy = CreatedBy = UserId.None;
         ModifiedOn = CreatedOn = DateTime.MinValue;
     }
     
@@ -43,7 +45,7 @@ public class Audit
     /// <param name="createdOn">The date and time the entity was created</param>
     /// <param name="modifiedBy">The UserId that last modified the entity</param>
     /// <param name="modifiedOn">The date and time the entity was last modified</param>
-    private Audit(UserId createdBy, DateTime createdOn, UserId modifiedBy, DateTime modifiedOn)
+    private Audit(CptisUser createdBy, DateTime createdOn, CptisUser modifiedBy, DateTime modifiedOn)
     {
         CreatedBy = createdBy;
         CreatedOn = createdOn;
@@ -56,7 +58,7 @@ public class Audit
     /// </summary>
     /// <param name="userId">The UserId of the user or process that modified the entity</param>
     /// <param name="modifiedOn">Optional: the date and time the entity was modified</param>
-    public void Modified(UserId userId, DateTime modifiedOn = default)
+    public void Modified(CptisUser userId, DateTime modifiedOn = default)
     {
         ModifiedBy = userId;
         ModifiedOn = modifiedOn == default ? DateTime.Now : modifiedOn;
@@ -67,7 +69,7 @@ public class Audit
     /// </summary>
     /// <param name="userId">The UserId of the user or process that created the entity</param>
     /// <param name="createdOn">Optional: the date and time the entity was created</param>
-    public void Created(UserId userId, DateTime createdOn = default)
+    public void Created(CptisUser userId, DateTime createdOn = default)
     {
         CreatedBy = userId;
         CreatedOn = createdOn == default ? DateTime.Now : createdOn;

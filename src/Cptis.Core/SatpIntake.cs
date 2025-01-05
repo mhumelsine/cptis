@@ -155,5 +155,11 @@ namespace Cptis.Core
         /// Indicates whether the intake is deleted.
         /// </summary>
         public bool IsDeleted { get; set; }
+
+        //Navigation Properties
+        /// <summary>
+        /// List of Satp Abuses
+        /// </summary>
+        public ICollection<SatpAbuse> SatpAbuses { get; set; }
     }
 }

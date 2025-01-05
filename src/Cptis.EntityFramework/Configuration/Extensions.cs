@@ -3,6 +3,7 @@ using Cptis.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
+
 namespace Cptis.EntityFramework.Configuration;
 
 public static class Extensions
@@ -23,20 +24,20 @@ public static class Extensions
             options.Property(x => x.CreatedOn)
                 .HasColumnName("audit_created_on");
             
-            options.ComplexProperty(x => x.CreatedBy, createdOptions =>
-            {
-                createdOptions.Property(x => x.Value)
-                    .HasColumnName("audit_created_by");
-            });
+            //options.ComplexProperty(x => x.CreatedBy, createdOptions =>
+            //{
+            //    createdOptions.Property(x => x.Value)
+            //        .HasColumnName("audit_created_by");
+            //});
 
             options.Property(x => x.ModifiedOn)
                 .HasColumnName("audit_modified_on");
             
-            options.ComplexProperty(x => x.ModifiedBy, createdOptions =>
-            {
-                createdOptions.Property(x => x.Value)
-                    .HasColumnName("audit_modified_by");
-            });
+            //options.ComplexProperty(x => x.ModifiedBy, createdOptions =>
+            //{
+            //    createdOptions.Property(x => x.Value)
+            //        .HasColumnName("audit_modified_by");
+            //});
         });
     }
     

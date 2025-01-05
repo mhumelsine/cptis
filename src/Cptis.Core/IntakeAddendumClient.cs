@@ -14,7 +14,7 @@ namespace Cptis.Core
         public int ClientDemographicId { get; set; }
         public string UserFirstName { get; set; }
         public string UserLastName { get; set; }
-        public string ClientId { get; set; }
+        public ClientId ClientId { get; set; }
         public DateTime? CreateDate { get; set; }
         public bool IsDeleted { get; set; }
         /// <summary>

@@ -29,4 +29,10 @@ public class ClientAddress()
     /// Audit details about when the address was created and modified
     /// </summary>
     public Audit Audit { get; set; } = new();
+
+    //Navigation Properties
+    /// <summary>
+    /// Client demographic
+    /// </summary>
+    public ClientDemographic ClientDemographic { get; set; }
 }

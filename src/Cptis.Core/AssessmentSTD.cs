@@ -87,5 +87,11 @@ namespace Cptis.Core
         /// Navigation property for the related Assessment.
         /// </summary>
         public Assessment Assessment { get; set; }
+
+        //Navigation Properties
+        /// <summary>
+        /// List of nursing assessment Risk Factors
+        /// </summary>
+        public ICollection<AssessmentSTDCrossRef> AssessmentSTDCrossRefs { get; set; }
     }
 }

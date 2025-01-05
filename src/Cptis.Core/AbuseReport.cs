@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace Cptis.Core
 {
-    public class AbuseReport
-    {
         public class AbuseReport
         {
             /// <summary>
@@ -198,9 +196,9 @@ namespace Cptis.Core
             /// <summary>
             /// List of abuse report links associated with this report.
             /// </summary>
-            public ICollection<AbuseReportLink> AbuseReportLinks { get; set; }
+            public ICollection<AbuseReportLink> LinkedReports { get; set; }
         }
         
         
-    }
+    
 }

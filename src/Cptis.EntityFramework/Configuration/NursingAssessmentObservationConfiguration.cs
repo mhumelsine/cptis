@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -68,6 +71,10 @@ namespace Cptis.EntityFramework.Configuration
             builder.Property(no => no.UserLastName)
                 .HasMaxLength(30) // Maximum length for the user last name
                 .IsRequired(false);
+            builder.HasOne(e => e.NursingAssessment)
+                .WithMany(n => n.NursingAssessmentObservations)
+                .HasForeignKey(e => e.NursingAssessmentId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

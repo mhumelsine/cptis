@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -90,10 +93,7 @@ namespace Cptis.EntityFramework.Configuration
                 .HasForeignKey(e => e.AssessmentId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasOne(e => e.ClientDemographic)
-                .WithMany(c => c.AssessmentDocuments)
-                .HasForeignKey(e => e.ClientDemographicId)
-                .OnDelete(DeleteBehavior.SetNull);
+            
         }
     }
 }

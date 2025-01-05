@@ -11,7 +11,7 @@ namespace Cptis.Core
         public int IntakeFamilyId { get; set; }
         public string AbuseReportNumber { get; set; }
         public string AbuseReportSequenceNumber { get; set; }
-        public string ClientId { get; set; }
+        public ClientId ClientId { get; set; }
         public int FamilyDemographicId { get; set; }
         public int IntakeId { get; set; }
         public string AllegedPerpetrator { get; set; }

@@ -191,7 +191,11 @@ namespace Cptis.Core
         public ICollection<IntakeAddendum> IntakeAddenda { get; set; }
         public ICollection<IntakeFamily> IntakeFamilies { get; set; }
         public ICollection<IntakeMaltreatment> IntakeMaltreatments { get; set; }
-        public ICollection<ClientCase> ClientCases { get; set; }
+        public ICollection<RegistrationLink> ClientCases { get; set; }
+        /// <summary>
+        /// Related Intake Addendums.
+        /// </summary>
+        public ICollection<IntakeAddendum> IntakeAddendums { get; set; }
     }
 
 }

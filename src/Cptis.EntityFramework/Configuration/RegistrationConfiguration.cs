@@ -27,7 +27,6 @@ namespace Cptis.EntityFramework.Configuration
             builder.Property(e => e.CPIName).HasMaxLength(30);
             builder.Property(e => e.Comments).HasMaxLength(1000);
             builder.Property(e => e.IsCrossTeam).HasMaxLength(5);
-            builder.Property(e => e.CrossTeamPrimary).HasMaxLength(30);
             builder.Property(e => e.CrossTeamOffice).HasMaxLength(5);
             builder.Property(e => e.CrossTeamCoordinatorCode).HasMaxLength(30);
             builder.Property(e => e.SecondReferralSource).HasMaxLength(5);

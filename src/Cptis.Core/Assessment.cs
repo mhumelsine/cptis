@@ -318,6 +318,21 @@ namespace Cptis.Core
         /// Associated provider details.
         /// </summary>
         public Provider Provider { get; set; }
+
+        /// <summary>
+        /// List of assessment documents
+        /// </summary>
+        public ICollection<AssessmentDocument> AssessmentDocuments { get; set; }
+
+        /// <summary>
+        /// List of assessment observers
+        /// </summary>
+        public ICollection<AssessmentObserver> AssessmentObservers { get; set; }
+
+        /// <summary>
+        /// List of STDs 
+        /// </summary>
+        public ICollection<AssessmentSTD> AssessmentSTDs { get; set; }
     }
 
 }

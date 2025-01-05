@@ -293,5 +293,69 @@ namespace Cptis.Core
         public ClientDemographic ClientDemographic { get; set; }
         public Assessment Assessment { get; set; }
         public Registration Registration { get; set; }
+        /// <summary>
+        /// List of nursing assessment treatments
+        /// </summary>
+        public ICollection<NursingAssessmentTreatment> NursingAssessmentTreatments { get; set; }
+        /// <summary>
+        /// List of nursing assessment additional information
+        /// </summary>
+        public ICollection<NursingAssessmentAdditionalInfo> NursingAssessmentAdditionalInformation { get; set; }
+        /// <summary>
+        /// List of nursing assessment allergies
+        /// </summary>
+        public ICollection<NursingAssessmentAllergy> NursingAssessmentAllergies { get; set; }
+        /// <summary>
+        /// List of nursing assessment Clinicals
+        /// </summary>
+        public ICollection<NursingAssessmentClinical> NursingAssessmentClinicals { get; set; }
+        /// <summary>
+        /// List of nursing assessment Diagnoses
+        /// </summary>
+        public ICollection<NursingAssessmentDiagnosis> NursingAssessmentDiagnoses { get; set; }
+        /// <summary>
+        /// List of nursing assessment Equipment
+        /// </summary>
+        public ICollection<NursingAssessmentEquipment> NursingAssessmentEquipments { get; set; }
+        /// <summary>
+        /// List of nursing assessment Immunizations
+        /// </summary>
+        public ICollection<NursingAssessmentImmunization> NursingAssessmentImmunizations { get; set; }
+        /// <summary>
+        /// List of nursing assessment Labs
+        /// </summary>
+        public ICollection<NursingAssessmentLab> NursingAssessmentLabs { get; set; }
+        /// <summary>
+        /// List of nursing assessment Medications
+        /// </summary>
+        public ICollection<NursingAssessmentMedication> NursingAssessmentMedications { get; set; }
+        /// <summary>
+        /// List of nursing assessment Observations
+        /// </summary>
+        public ICollection<NursingAssessmentObservation> NursingAssessmentObservations { get; set; }
+        /// <summary>
+        /// List of nursing assessment who was present during exam
+        /// </summary>
+        public ICollection<NursingAssessmentPresentDuringExam> NursingAssessmentPresentDuringExams { get; set; }
+        /// <summary>
+        /// List of nursing assessment Risk Factors
+        /// </summary>
+        public ICollection<NursingAssessmentRiskFactor> NursingAssessmentRiskFactors { get; set; }
+        /// <summary>
+        /// List of nursing assessment Sexual Abuses
+        /// </summary>
+        public ICollection<NursingAssessmentSexualAbuse> NursingAssessmentSexualAbuses { get; set; }
+        /// <summary>
+        /// List of nursing assessment Social Histories
+        /// </summary>
+        public ICollection<NursingAssessmentSocialHistory> NursingAssessmentSocialHistories { get; set; }
+        /// <summary>
+        /// List of nursing assessment Systems
+        /// </summary>
+        public ICollection<NursingAssessmentSystem> NursingAssessmentSystems { get; set; }
+        /// <summary>
+        /// List of nursing assessment Referrals
+        /// </summary>
+        public ICollection<NursingAssessmentReferral> NursingAssessmentReferrals { get; set; }
     }
 }

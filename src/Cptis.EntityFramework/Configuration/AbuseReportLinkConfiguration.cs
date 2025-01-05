@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -22,10 +25,7 @@ namespace Cptis.EntityFramework.Configuration
                 .HasForeignKey(e => e.AbuseReportId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.HasOne(e => e.LinkedAbuseReport)
-                .WithMany(e => e.LinkedByReports)
-                .HasForeignKey(e => e.LinkedAbuseReportId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+            
         }
     }
 }

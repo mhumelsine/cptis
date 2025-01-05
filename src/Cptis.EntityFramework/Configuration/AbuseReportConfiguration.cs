@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -43,9 +46,6 @@ namespace Cptis.EntityFramework.Configuration
                 .WithOne(e => e.AbuseReport)
                 .HasForeignKey(e => e.AbuseReportId);
 
-            builder.HasMany(e => e.LinkedByReports)
-                .WithOne(e => e.LinkedAbuseReport)
-                .HasForeignKey(e => e.LinkedAbuseReportId);
         }
     }
 }

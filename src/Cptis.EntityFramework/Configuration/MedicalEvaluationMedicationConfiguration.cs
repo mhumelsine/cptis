@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -18,7 +21,6 @@ namespace Cptis.EntityFramework.Configuration
 
             builder.Audit(x => x.Audit);
             // Properties
-            builder.Property(e => e.MedicalEvaluationMedicationsId).IsRequired();
             builder.Property(e => e.Name).HasMaxLength(30).IsRequired();
             builder.Property(e => e.Dose).HasMaxLength(30);
             builder.Property(e => e.Reason).HasMaxLength(255);

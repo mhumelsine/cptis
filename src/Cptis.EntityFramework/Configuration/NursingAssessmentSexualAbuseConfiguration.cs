@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -78,7 +81,7 @@ namespace Cptis.EntityFramework.Configuration
 
             // Relationships
             builder.HasOne(e => e.NursingAssessment)
-                .WithMany(n => n.SexualAbuses)
+                .WithMany(n => n.NursingAssessmentSexualAbuses)
                 .HasForeignKey(e => e.NursingAssessmentId)
                 .OnDelete(DeleteBehavior.Cascade);
         }

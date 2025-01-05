@@ -31,7 +31,7 @@ namespace Cptis.Core
         /// <summary>
         /// Client identifier associated with the document.
         /// </summary>
-        public string ClientId { get; set; }
+        public ClientId ClientId { get; set; }
 
         /// <summary>
         /// File name of the document.

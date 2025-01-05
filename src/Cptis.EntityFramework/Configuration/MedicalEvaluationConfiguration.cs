@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -32,9 +35,6 @@ namespace Cptis.EntityFramework.Configuration
             builder.Property(e => e.EvaluationType).HasMaxLength(255);
 
             // Relationships
-            builder.HasOne(e => e.AbuseReport)
-                .WithMany()
-                .HasForeignKey(e => e.AbuseReportId);
 
             builder.HasOne(e => e.ClientDemographic)
                 .WithMany()
@@ -44,9 +44,6 @@ namespace Cptis.EntityFramework.Configuration
                 .WithMany()
                 .HasForeignKey(e => e.AssessmentId);
 
-            builder.HasOne(e => e.Registration)
-                .WithMany()
-                .HasForeignKey(e => e.RegistrationId);
         }
     }
 }

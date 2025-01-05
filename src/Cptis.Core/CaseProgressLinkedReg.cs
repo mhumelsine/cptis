@@ -21,6 +21,10 @@ namespace Cptis.Core
         /// </summary>
         public int CaseProgressId { get; set; }
         /// <summary>
+        /// Client Id for progress note linked reg
+        /// </summary>
+        public ClientId ClientId { get; set; }
+        /// <summary>
         /// FK to the client demographic
         /// </summary>
         public int ClientDemographicId { get; set; }

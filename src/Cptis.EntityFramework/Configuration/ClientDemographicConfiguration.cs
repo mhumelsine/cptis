@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cptis.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Cptis.EntityFramework.Configuration
 {
@@ -101,11 +104,11 @@ namespace Cptis.EntityFramework.Configuration
             builder.Property(e => e.IsDeleted)
                 .IsRequired();
 
-            builder.HasMany(e => e.ClientPhone)
+            builder.HasMany(e => e.ClientPhones)
                 .WithOne(e => e.ClientDemographic)
                 .HasForeignKey(e => e.ClientPhoneId);
 
-            builder.HasMany(e => e.ClientAddress)
+            builder.HasMany(e => e.ClientAddresses)
                 .WithOne(e => e.ClientDemographic)
                 .HasForeignKey(e => e.ClientAddressId);
         }

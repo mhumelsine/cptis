@@ -34,4 +34,10 @@ public class ClientPhone
     /// Audit details about when the phone was created and modified
     /// </summary>
     public Audit Audit { get; set; } = new();
+
+    //Navigation Properties
+    /// <summary>
+    /// Client who has the phone
+    /// </summary>
+    public ClientDemographic ClientDemographic { get; set; }
 }

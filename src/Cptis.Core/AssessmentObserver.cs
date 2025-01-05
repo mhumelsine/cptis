@@ -87,5 +87,10 @@ namespace Cptis.Core
         /// Navigation property for the related client demographic.
         /// </summary>
         public ClientDemographic ClientDemographic { get; set; }
+
+        /// <summary>
+        /// List of alleged and assessed maltreatments for registrations
+        /// </summary>
+        public ICollection<AssessmentSTDCrossRef> AssessmentSTDCrossRefs { get; set; }
     }
 }
