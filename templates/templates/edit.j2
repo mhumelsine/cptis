@@ -1,0 +1,36 @@
+﻿import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
+import { Button, Group, TextInput, NumberInput } from '@mantine/core';
+
+function Demo() {
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      name: '',
+      job: '',
+      email: '',
+      favoriteColor: '',
+      age: 18, //TODO:
+    },
+
+    validate: {
+        {%- for field in fields %}
+            {{ validate(field) }}
+        {%- endfor %}
+    }
+  });
+
+  return <form onSubmit={form.onSubmit(() => {})}>
+    {%- for field in fields %}
+        <{{ input(field.input) }}
+            label="{{ field.id |title }}"
+            placeholder="{{ field.id |title }}"
+            {% if field.checks.required -%}
+                withAsterisk
+            {% endif -%}
+            key={form.key("{{ field.id }}")}
+            {...form.getInputProps("{{ field.id }}")}
+        />
+    {%- endfor -%}
+    {{- save() -}}
+    </form>;
+}
