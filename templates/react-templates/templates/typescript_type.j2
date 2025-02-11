@@ -1,0 +1,5 @@
+﻿interface {{ entity_name|title }}{{ screen_type|title }} {
+{% for field in fields %}
+    {{ type_definition_field(field) }};
+{% endfor %}
+}

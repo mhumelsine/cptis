@@ -1,61 +1,79 @@
 ﻿{% macro input(type) %}
     {%- if type == 'text' -%}
-        TextInput
+TextInput
     {%- elif type == 'number' -%}
-        NumberInput
+NumberInput
     {%- else -%}
-        Your Input Type Is Not Known
+Your Input Type Is Not Known
     {%- endif -%}
 {% endmacro %}
 
-{% macro save() %}
-    <Group justify="flex-end" mt="md">
-        <Button type="submit">Save</Button>
-    </Group>
-{% endmacro %}
-
 {% macro validate(field) %}
-    {{- field.id -}}{{- ': [' -}}
-    {%- for check_name, check in field.checks.items() -%}
-        {%- if check_name == 'required' and check -%}
-            {{ validate_required(field) }}
-        {%- elif check_name == 'range' -%}
-            {{ validate_range(field, check) }}
-        {%- endif -%}
-    {%- endfor -%}
-    {{- '],' -}}
+{{ field.id -}}{{- ': [' }}
+{%- for check_name, check in field.checks.items() -%}
+    {%- if check_name == 'required' and check -%}
+{{ validate_required(field) }}
+    {%- elif check_name == 'range' -%}
+{{ validate_range(field, check) }}
+    {%- elif check_name == 'regex' -%}
+{{ validate_pattern(field, check) }}
+    {%- endif -%}
+{%- endfor -%}
+{{ ']' -}}
 {% endmacro %}
 
 {% macro validate_required(field) %}
     {%- if field.input == 'text' -%}
-        isNotEmpty('{{ field.id|title }} is required.'),
+isNotEmpty('{{ field.id|label_name }} is required.'),
     {%- endif -%}
 {% endmacro %}
 
 {% macro validate_range(field, range) %}
     {%- if field.input == 'text' -%}
-        {{ validate_string_length(field.id, range.min, range.max) }}
-    {% elif field.input == 'number' %}
-        {{ validate_number_range(field.id, range.min, range.max) }}
+{{ validate_string_length(field.id, range.min, range.max) }}
+    {%- elif field.input == 'number' -%}
+{{ validate_number_range(field.id, range.min, range.max) }}
     {%- endif -%}
 {% endmacro %}
 
 {%  macro validate_string_length(id, min, max) %}
     {%- if min and max -%}
-        hasLength({ min: {{ min }}, max: {{ max }} }, '{{ id|title }} must be {{ min }}-{{ max }} characters long.'),
+hasLength({ min: {{ min }}, max: {{ max }} }, '{{ id|label_name }} must be {{ min }}-{{ max }} characters long.'),
     {%- elif max -%}
-        hasLength({ max: {{ max }} }, '{{ id|title }} can be no more than {{ max }} characters long.'),
+hasLength({ max: {{ max }} }, '{{ id|label_name }} can be no more than {{ max }} characters long.'),
     {%- elif min -%}
-        hasLength({ min: {{ min }} }, '{{ id|title }} must be at least {{ min }} characters long.'),
+hasLength({ min: {{ min }} }, '{{ id|label_name }} must be at least {{ min }} characters long.'),
     {%- endif -%}
 {% endmacro %}
 
 {%  macro validate_number_range(id, min, max) %}
     {%- if min and max -%}
-        isInRange({ min: {{ min }}, max: {{ max }} }, '{{ id|title }} must be between {{ min }}-{{ max }}.'),
+isInRange({ min: {{ min }}, max: {{ max }} }, '{{ id|title }} must be between {{ min }}-{{ max }}.'),
     {%- elif max -%}
-        isInRange({ max: {{ max }} }, '{{ id|title }} must be less than {{ max }}.'),
+isInRange({ max: {{ max }} }, '{{ id|label_name }} must be less than {{ max }}.'),
     {%- elif min -%}
-        isInRange({ min: {{ min }} }, '{{ id|title }} must be at least {{ min }}.'),
+isInRange({ min: {{ min }} }, '{{ id|label_name }} must be at least {{ min }}.'),
+    {%- endif -%}
+{% endmacro %}
+
+{% macro validate_pattern(field, regex) %}
+    {%- if field.input == 'text' -%}
+matches(/{{ regex }}/, '{{ field.id|label_name }} must match the pattern {{ regex }}'),
+    {%- endif -%}
+{% endmacro %}
+
+{% macro type_definition_field(field) %}
+    {%- if field.input == 'text' -%}
+{{ field.id }}: string
+    {%- elif field.input == 'number' -%}
+{{ field.id }}:  number
+    {%- endif -%}
+{% endmacro %}
+
+{% macro default_value(field) %}
+    {%- if field.input == 'text' -%}
+{{ field.id }}: '{{ field.default }}'
+    {%- elif field.input == 'number' -%}
+{{ field.id }}: {{ field.default }}
     {%- endif -%}
 {% endmacro %}

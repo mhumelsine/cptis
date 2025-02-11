@@ -1,40 +1,65 @@
 ﻿import os
+import re
 
 from jinja2 import Environment, FileSystemLoader
 import yaml
 
-content = None
+def label_name(value:str):
+    split = re.sub('([A-Z][a-z]+)', r' \1', value).split()
 
-with open("./forms.yml", encoding="utf-8-sig") as f:
-    try:
-        content = yaml.safe_load(f)
-    except yaml.YAMLError as e:
-        print(e)
+    for index, s in enumerate(split):
+        if index == 0:
+            split[index] = s.title()
+        else:
+            split[index] = s.lower()
 
-# Configure Jinja environment
-env = Environment(
-    loader=FileSystemLoader('./templates', encoding='utf-8-sig'),
-)
-#for module in env.get_template('./macros.j2').module:
+    return ' '.join(split)
 
-env.globals.update(env.get_template('./macros.j2').module.__dict__)
+if __name__ == "__main__":
 
-os.makedirs('./output', exist_ok=True)
-os.makedirs('./output/spa', exist_ok=True)
-os.makedirs('./output/api', exist_ok=True)
+    content = None
 
-for entity_name in content.keys():
-    os.makedirs(f'./output/spa/{entity_name}', exist_ok=True)
+    with open("./forms.yml", encoding="utf-8-sig") as f:
+        try:
+            content = yaml.safe_load(f)
+        except yaml.YAMLError as e:
+            print(e)
 
-    print(f'Entity: {entity_name}')
-    for screen_type in content[entity_name].keys():
-        print(f'Screen: {screen_type}')
-        template_name = f'{screen_type}.j2'
-        template = env.get_template(template_name)
+    # Configure Jinja environment
+    env = Environment(
+        loader=FileSystemLoader('./templates', encoding='utf-8-sig'),
+        lstrip_blocks=True,
+        trim_blocks=True
+    )
+    env.filters['label_name'] = label_name
+    env.globals.update(env.get_template('./macros.j2').module.__dict__)
 
-        output = template.render(content[entity_name][screen_type])
+    os.makedirs('./output', exist_ok=True)
+    os.makedirs('./output/spa', exist_ok=True)
+    os.makedirs('./output/api', exist_ok=True)
 
-        with open(f'./output/spa/{entity_name}/{screen_type}.tsx', "w") as component:
-            component.write(output)
+    for entity_name in content.keys():
+        os.makedirs(f'./output/spa/{entity_name}', exist_ok=True)
 
-exit(0)
+        print(f'Entity: {entity_name}')
+        for screen_type in content[entity_name].keys():
+            print(f'Screen: {screen_type}')
+
+            with open(f'./output/spa/{entity_name}/{screen_type.title()}.tsx', "w+") as component:
+                template_name = f'{screen_type}.j2'
+                template = env.get_template(template_name)
+
+                component.write(template.render(content[entity_name][screen_type]))
+
+            with open(f'./output/spa/{entity_name}/types.ts', "a+") as model_type:
+                template = env.get_template('typescript_type.j2')
+
+                type_model = {
+                    'entity_name': entity_name,
+                    'screen_type': screen_type,
+                    'fields': content[entity_name][screen_type]['fields']
+                }
+
+                model_type.write(template.render(type_model))
+
+    exit(0)
