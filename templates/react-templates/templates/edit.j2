@@ -18,15 +18,7 @@ const Edit = () => {
 
   return <form onSubmit={form.onSubmit(() => {})}>
     {% for field in fields %}
-    <{{ input(field.input) }}
-        label="{{ field.id |label_name }}"
-        placeholder="{{ field.id |label_name }}"
-        {% if field.checks.required %}
-        withAsterisk
-        {% endif %}
-        key={form.key("{{ field.id }}")}
-        {...form.getInputProps("{{ field.id }}")}
-    />
+{{ form_input(field) }}
     {% endfor %}
     <Group justify="flex-end" mt="md">
         <Button type="submit">Save</Button>

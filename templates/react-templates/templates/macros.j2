@@ -77,3 +77,35 @@ matches(/{{ regex }}/, '{{ field.id|label_name }} must match the pattern {{ rege
 {{ field.id }}: {{ field.default }}
     {%- endif -%}
 {% endmacro %}
+
+{%  macro form_input(field) %}
+    {%- if field.input == 'select' -%}
+{{ select_input(field) }}
+    {%- else -%}
+<{{ input(field.input) }}
+    label="{{ field.id |label_name }}"
+    placeholder="{{ field.id |label_name }}"
+    {% if field.checks.required %}
+    withAsterisk
+    {% endif %}
+    key={form.key("{{ field.id }}")}
+    {...form.getInputProps("{{ field.id }}")}
+/>
+    {%- endif -%}
+{% endmacro %}
+
+{% macro select_input(field, codeSet) %}
+<CodeSelect
+    codeSet='{{ codeSet }}'
+    label="{{ field.id |label_name }}"
+    placeholder="{{ field.id |label_name }}"
+    {% if field.checks.required %}
+    withAsterisk
+    {% endif %}
+    key={form.key("{{ field.id }}")}
+    {...form.getInputProps("{{ field.id }}")}
+    searchable
+    clearable
+    allowDeselect
+/>
+{% endmacro %}

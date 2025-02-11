@@ -1,31 +1,147 @@
 ﻿user:
-  edit:
-    fields:
-      - id: 'name'
-        input: 'text'
-        checks:
-          range:
-            min: 2
-            max: 10
-          required: true
-      - id: 'job'
-        input: 'text'
-        checks:
-          required: true
-      - id: 'email'
-        input: 'text'
-        checks:
-          required: true
-          email: true
-      - id: 'favoriteColor'
-        input: 'text'
-        checks:
-          regex: '^#([0-9a-f]{3}){1,2}$'
-          required: true
-      - id: 'age'
-        input: number
-        default: 18
-        checks:
-          range:
-            min: 18
-            max: 120
+  pages:
+    - edit
+    - create
+    - search
+  fields:
+    - id: 'name'
+      input: 'text'
+      checks:
+        range:
+          min: 2
+          max: 10
+        required: true
+    - id: 'job'
+      input: 'text'
+      checks:
+        required: true
+    - id: 'email'
+      input: 'text'
+      checks:
+        required: true
+        email: true
+    - id: 'favoriteColor'
+      input: 'text'
+      checks:
+        regex: '^#([0-9a-f]{3}){1,2}$'
+        required: true
+    - id: 'age'
+      input: number
+      default: 18
+      checks:
+        range:
+          min: 18
+          max: 120
+
+
+codeSet:
+  route: 'codes'
+  pages:
+    - edit
+    - create
+    - search
+  fields:
+    - id: name
+      input: text
+      checks:
+        range:
+          min: 2
+          max: 50
+        required: true
+    - id: description
+      input: 'text'
+      checks:
+        required: true
+        range:
+          max: 255
+
+code:
+  route: 'codes/code/{:id}'
+  pages:
+    - edit
+    - create
+  fields:
+    - id: code
+      input: text
+      checks:
+        range:
+          min: 2
+          max: 25
+    - id: description
+      input: 'text'
+      checks:
+        required: true
+        range:
+          max: 255
+
+provider:
+  pages:
+    - edit
+    - create
+    - search
+  fields:
+    - id: 'providerID'
+      input: 'text'
+      checks:
+        range:
+          min: 2
+          max: 20
+        required: true
+    - id: 'lastName'
+      input: 'text'
+      checks:
+        range:
+          min: 2
+          max: 50
+        required: false
+    - id: 'firstName'
+      input: 'text'
+      checks:
+        range:
+          min: 2
+          max: 50
+        required: false
+    - id: 'title'
+      input: 'text'
+      checks:
+        range:
+          min: 2
+          max: 50
+        required: false
+    - id: 'securityID'
+      input: 'text'
+      checks:
+        range:
+          min: 2
+          max: 50
+        required: false
+    - id: 'terminationDate'
+      input: 'date'
+      checks:
+        required: false
+    - id: 'approvedStatuteStaff'
+      input: 'select'
+      codeSet: 'statuteStaff'
+      checks:
+        required: false
+    - id: 'cmsApprovalDate'
+      input: 'date'
+      checks:
+        required: false
+    - id: 'license'
+      input: 'text'
+      checks:
+        max: 100
+        required: false
+    - id: 'licenseExpirationDate'
+      input: 'date'
+      checks:
+        required: false
+    - id: 'basicForensicInterviewTrainingCompletionDate'
+      input: 'date'
+      checks:
+        required: false
+    - id: 'advancedForensicInterviewTrainingCompletionDate'
+      input: 'date'
+      checks:
+        required: false

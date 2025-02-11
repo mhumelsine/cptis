@@ -15,6 +15,8 @@ def label_name(value:str):
 
     return ' '.join(split)
 
+
+
 if __name__ == "__main__":
 
     content = None
@@ -42,22 +44,22 @@ if __name__ == "__main__":
         os.makedirs(f'./output/spa/{entity_name}', exist_ok=True)
 
         print(f'Entity: {entity_name}')
-        for screen_type in content[entity_name].keys():
-            print(f'Screen: {screen_type}')
+        for page in content[entity_name]['pages']:
+            print(f'Page: {page}')
 
-            with open(f'./output/spa/{entity_name}/{screen_type.title()}.tsx', "w+") as component:
-                template_name = f'{screen_type}.j2'
+            with open(f'./output/spa/{entity_name}/{page.title()}.tsx', "w+") as component:
+                template_name = f'{page}.j2'
                 template = env.get_template(template_name)
 
-                component.write(template.render(content[entity_name][screen_type]))
+                component.write(template.render(content[entity_name]['fields']))
 
             with open(f'./output/spa/{entity_name}/types.ts', "a+") as model_type:
                 template = env.get_template('typescript_type.j2')
 
                 type_model = {
                     'entity_name': entity_name,
-                    'screen_type': screen_type,
-                    'fields': content[entity_name][screen_type]['fields']
+                    'screen_type': page,
+                    'fields': content[entity_name]['fields']
                 }
 
                 model_type.write(template.render(type_model))
