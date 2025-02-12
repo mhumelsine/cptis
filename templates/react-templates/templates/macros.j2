@@ -67,6 +67,10 @@ matches(/{{ regex }}/, '{{ field.id|label_name }} must match the pattern {{ rege
 {{ field.id }}: string
     {%- elif field.input == 'number' -%}
 {{ field.id }}:  number
+    {%- elif field.input == 'date' -%}
+{{ field.id }}:  string
+    {%- elif field.input == 'select' -%}
+{{ field.id }}:  string
     {%- endif -%}
 {% endmacro %}
 
@@ -75,37 +79,58 @@ matches(/{{ regex }}/, '{{ field.id|label_name }} must match the pattern {{ rege
 {{ field.id }}: '{{ field.default }}'
     {%- elif field.input == 'number' -%}
 {{ field.id }}: {{ field.default }}
+    {%- else -%}
+{{ field.id }}: '{{ field.default }}'
     {%- endif -%}
 {% endmacro %}
 
 {%  macro form_input(field) %}
     {%- if field.input == 'select' -%}
 {{ select_input(field) }}
+    {%- elif field.input == 'date' -%}
+{{ date_input(field) }}
     {%- else -%}
 <{{ input(field.input) }}
-    label="{{ field.id |label_name }}"
-    placeholder="{{ field.id |label_name }}"
-    {% if field.checks.required %}
-    withAsterisk
-    {% endif %}
-    key={form.key("{{ field.id }}")}
-    {...form.getInputProps("{{ field.id }}")}
-/>
+        label="{{ field.id |label_name }}"
+        placeholder="{{ field.id |label_name }}"
+        {% if field.checks.required %}
+        withAsterisk
+        {% endif %}
+        key={form.key("{{ field.id }}")}
+        {...form.getInputProps("{{ field.id }}")}
+    />
     {%- endif -%}
 {% endmacro %}
 
 {% macro select_input(field, codeSet) %}
+    {%- if field.input == 'select' -%}
 <CodeSelect
-    codeSet='{{ codeSet }}'
-    label="{{ field.id |label_name }}"
-    placeholder="{{ field.id |label_name }}"
-    {% if field.checks.required %}
-    withAsterisk
-    {% endif %}
-    key={form.key("{{ field.id }}")}
-    {...form.getInputProps("{{ field.id }}")}
-    searchable
-    clearable
-    allowDeselect
-/>
+        codeSet='{{ field.codeSet }}'
+        label="{{ field.id |label_name }}"
+        placeholder="{{ field.id |label_name }}"
+        {% if field.checks.required %}
+        withAsterisk
+        {% endif %}
+        key={form.key("{{ field.id }}")}
+        {...form.getInputProps("{{ field.id }}")}
+        searchable
+        clearable
+        allowDeselect
+    />
+    {%- endif  -%}
+{% endmacro %}
+
+{% macro date_input(field) %}
+    {%- if field.input == 'date' -%}
+<DateInput
+        label="{{ field.id |label_name }}"
+        placeholder="{{ field.id |label_name }}"
+        {% if field.checks.required %}
+        withAsterisk
+        {% endif %}
+        key={form.key("{{ field.id }}")}
+        {...form.getInputProps("{{ field.id }}")}
+        clearable
+    />
+    {%- endif  -%}
 {% endmacro %}

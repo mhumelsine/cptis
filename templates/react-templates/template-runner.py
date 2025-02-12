@@ -51,7 +51,7 @@ if __name__ == "__main__":
                 template_name = f'{page}.j2'
                 template = env.get_template(template_name)
 
-                component.write(template.render(content[entity_name]['fields']))
+                component.write(template.render(content[entity_name]))
 
             with open(f'./output/spa/{entity_name}/types.ts', "a+") as model_type:
                 template = env.get_template('typescript_type.j2')

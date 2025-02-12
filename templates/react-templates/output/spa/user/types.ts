@@ -1,142 +1,40 @@
+
 interface UserEdit {
     name: string;
     job: string;
     email: string;
     favoriteColor: string;
     age:  number;
-}interface UserEdit {
+}
+interface UserCreate {
     name: string;
     job: string;
     email: string;
     favoriteColor: string;
     age:  number;
-}interface UserEdit {
+}
+interface UserSearch {
     name: string;
     job: string;
     email: string;
     favoriteColor: string;
     age:  number;
-}interface UserEdit {
+}
+interface UserEdit {
     name: string;
     job: string;
     email: string;
     favoriteColor: string;
     age:  number;
-}interface UserEdit {
+}
+interface UserCreate {
     name: string;
     job: string;
     email: string;
     favoriteColor: string;
     age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
-    name: string;
-    job: string;
-    email: string;
-    favoriteColor: string;
-    age:  number;
-}interface UserEdit {
+}
+interface UserSearch {
     name: string;
     job: string;
     email: string;
