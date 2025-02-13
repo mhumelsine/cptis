@@ -21,21 +21,6 @@ def label_name(value:str):
 
     return ' '.join(split)
 
-def title_name(value:str):
-    split = re.sub('([A-Z][a-z]+)', r' \1', value).split()
-
-    for index, s in enumerate(split):
-        split[index] = s.title()
-
-    return ' '.join(split)
-
-def type_name(value:str):
-    split = re.sub('([A-Z][a-z]+)', r' \1', value).split()
-
-    for index, s in enumerate(split):
-        split[index] = s.title()
-
-    return ''.join(split)
 
 
 if __name__ == "__main__":
@@ -55,8 +40,6 @@ if __name__ == "__main__":
         trim_blocks=True
     )
     env.filters['label_name'] = label_name
-    env.filters['title_name'] = title_name
-    env.filters['type_name'] = type_name
     env.globals.update(env.get_template('./macros.j2').module.__dict__)
 
     os.makedirs('./output', exist_ok=True)
@@ -69,8 +52,7 @@ if __name__ == "__main__":
         print(f'Entity: {entity_name}')
         for page in content[entity_name]['pages']:
             page_name = page['name']
-            grid = page.get('grid') # maybe None
-
+            grid = page['grid']
 
             print(f'Page: {page_name}')
             print(page)
@@ -96,5 +78,4 @@ if __name__ == "__main__":
 
                 model_type.write(template.render(type_model))
 
-    os.system('prettier --write .\output')
     exit(0)

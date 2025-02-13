@@ -1,0 +1,20 @@
+﻿import { Link, Route, Routes } from 'react-router';
+import { AppShell } from '@mantine/core';
+import Search from './Search.tsx';
+
+const Menu = () => {
+    return <>
+        <AppShell.Navbar p='md'>
+            <Link to='/{{ route }}'>
+                Search
+            </Link>
+        </AppShell.Navbar>
+        <AppShell.Main>
+            <Routes>
+                <Route path='/' element={<Search/>}/>
+            </Routes>
+        </AppShell.Main>
+    </>;
+}
+
+export default Menu;

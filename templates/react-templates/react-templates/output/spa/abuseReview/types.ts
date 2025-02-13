@@ -1,0 +1,2 @@
+interface AbuseReviewList {}
+interface AbuseReviewCreate {}

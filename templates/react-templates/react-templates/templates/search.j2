@@ -1,0 +1,29 @@
+﻿import { useForm, isNotEmpty, isEmail, isInRange, hasLength, matches } from '@mantine/form';
+import { Button, Group, TextInput, NumberInput } from '@mantine/core';
+
+const Edit = () => {
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+    {% for field in fields %}
+        {{ default_value(field) }},
+    {% endfor %}
+    },
+    validate: {
+    {% for field in fields %}
+        {{ validate(field) }},
+    {% endfor %}
+    }
+  });
+
+  return <form onSubmit={form.onSubmit(() => {})}>
+    {% for field in fields %}
+    {{ form_input(field) }}
+    {% endfor %}
+    <Group justify="flex-end" mt="md">
+        <Button type="submit">Save</Button>
+    </Group>
+  </form>;
+}
+
+export default Edit;
