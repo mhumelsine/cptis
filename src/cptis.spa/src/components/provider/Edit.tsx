@@ -7,6 +7,7 @@ import { useApi } from "./types.ts";
 import { notifications } from "@mantine/notifications";
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import AddressList from "../controls/AddressList.tsx";
 
 const Edit = () => {
   const api = useApi("Provider.Edit");
@@ -218,13 +219,17 @@ const Edit = () => {
         <Accordion.Item key="address" value="address">
           <Accordion.Control>Address</Accordion.Control>
           <Accordion.Panel>
-            <Grid></Grid>
+            <Grid>
+              <Grid.Col span={{ base: 12 }}>
+                <AddressList api="provider" />
+              </Grid.Col>
+            </Grid>
           </Accordion.Panel>
         </Accordion.Item>
         <Accordion.Item key="phone" value="phone">
           <Accordion.Control>Phone</Accordion.Control>
           <Accordion.Panel>
-            <Grid></Grid>
+            <div>TODO: phone</div>
           </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
