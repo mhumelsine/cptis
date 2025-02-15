@@ -146,7 +146,6 @@ const Edit = () => {
                   placeholder="Termination date"
                   key={form.key("terminationDate")}
                   {...form.getInputProps("terminationDate")}
-
                 />
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
@@ -167,7 +166,6 @@ const Edit = () => {
                   placeholder="Cms approval date"
                   key={form.key("cmsApprovalDate")}
                   {...form.getInputProps("cmsApprovalDate")}
-
                 />
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
@@ -184,7 +182,6 @@ const Edit = () => {
                   placeholder="License expiration date"
                   key={form.key("licenseExpirationDate")}
                   {...form.getInputProps("licenseExpirationDate")}
-
                 />
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
@@ -195,7 +192,6 @@ const Edit = () => {
                   {...form.getInputProps(
                     "basicForensicInterviewTrainingCompletionDate",
                   )}
-
                 />
               </Grid.Col>
               <Grid.Col span={{ base: 12, md: 6, lg: 4 }}>
@@ -208,7 +204,6 @@ const Edit = () => {
                   {...form.getInputProps(
                     "advancedForensicInterviewTrainingCompletionDate",
                   )}
-
                 />
               </Grid.Col>
             </Grid>
